@@ -14,7 +14,7 @@ struct {
 } dumpedelf_0 = {
 
 .ehdr = {
-	.e_ident = { /* (EI_NIDENT bytes) */
+	.e_ident = { /* (EI_NIDENT bytes) */						16 bytes
 		/* [0] EI_MAG:        */ 0x7F,'E','L','F',
 		/* [4] EI_CLASS:      */ 1 , /* (ELFCLASS32) */
 		/* [5] EI_DATA:       */ 2 , /* (ELFDATA2MSB) */
@@ -23,9 +23,9 @@ struct {
 		/* [8] EI_ABIVERSION: */ 0 ,
 		/* [9-15] EI_PAD:     */ 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
 	},
-	.e_type      = 1          , /* (ET_REL) */
-	.e_machine   = 8          , /* (EM_MIPS) */
-	.e_version   = 1          , /* (EV_CURRENT) */
+	.e_type      = 1          , /* (ET_REL) */					2 bytes	
+	.e_machine   = 8          , /* (EM_MIPS) */					2 bytes
+	.e_version   = 1          , /* (EV_CURRENT) */				
 	.e_entry     = 0x0        , /* (start address at runtime) */
 	.e_phoff     = 0          , /* (bytes into file) */
 	.e_shoff     = 688        , /* (bytes into file) */
