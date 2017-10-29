@@ -1,0 +1,154 @@
+#include <elf.h>
+
+/*
+ * ELF dump of 'kod.o'
+ *     655 (0x28F) bytes
+ */
+
+Elf32_Dyn dumpedelf_dyn_0[];
+struct {
+	Elf32_Ehdr ehdr;
+	Elf32_Phdr phdrs[0];
+	Elf32_Shdr shdrs[8];
+	Elf32_Dyn *dyns;
+} dumpedelf_0 = {
+
+.ehdr = {
+	.e_ident = { /* (EI_NIDENT bytes) */							16 bytes
+		/* [0] EI_MAG:        */ 0x7F,'E','L','F',
+		/* [4] EI_CLASS:      */ 1 , /* (ELFCLASS32) */
+		/* [5] EI_DATA:       */ 1 , /* (ELFDATA2LSB) */
+		/* [6] EI_VERSION:    */ 1 , /* (EV_CURRENT) */
+		/* [7] EI_OSABI:      */ 9 , /* (ELFOSABI_FREEBSD) */
+		/* [8] EI_ABIVERSION: */ 0 ,
+		/* [9-15] EI_PAD:     */ 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+	},
+	.e_type      = 1          , /* (ET_REL)  						2 bytes*/
+	.e_machine   = 3   !!!    , /* (EM_386)  						2 bytes*/ = value of 8 pre MIPS
+	.e_version   = 1          , /* (EV_CURRENT) 					4 bytes*/
+	.e_entry     = 0x0        , /* (start address at runtime) 		4 bytes*/
+	.e_phoff     = 0          , /* (bytes into file) 				4 bytes*/ = 32 bytes
+	.e_shoff     = 212 !!!    , /* (bytes into file) 				4 bytes*/ = 36 bytes
+	.e_flags     = 0x0        ,										4 bytes
+	.e_ehsize    = 52         , /* (bytes) */						2 bytes
+	.e_phentsize = 0          , /* (bytes) */						2 bytes
+	.e_phnum     = 0          , /* (program headers) */				2 bytes
+	.e_shentsize = 40  !!!    , /* (bytes) */						2 bytes
+	.e_shnum     = 8          , /* (section headers) */				2 bytes
+	.e_shstrndx  = 5         										2 bytes
+},
+
+.phdrs = {
+ /* no program headers ! */ },
+
+.shdrs = {
+/* Section Header #0 '' 0xD4 */
+{
+	.sh_name      = 0          , 						4 bytes
+	.sh_type      = 0          , /* [SHT_NULL] */		4 bytes
+	.sh_flags     = 0          ,						4 bytes
+	.sh_addr      = 0x0        ,						4 bytes
+	.sh_offset    = 0          , /* (bytes) */			4 bytes
+	.sh_size      = 0          , /* (bytes) */			4 bytes
+	.sh_link      = 0          ,						4 bytes
+	.sh_info      = 0          ,						4 bytes
+	.sh_addralign = 0          ,						4 bytes
+	.sh_entsize   = 0         							4 bytes = 40 bytes podla .e_shentsize
+},
+/* Section Header #1 '.text' 0xFC */
+{
+	.sh_name      = 27         ,
+	.sh_type      = 1          , /* [SHT_PROGBITS] */
+	.sh_flags     = 6          ,
+	.sh_addr      = 0x0        ,
+	.sh_offset    = 52         , /* (bytes) */
+	.sh_size      = 67         , /* (bytes) */
+	.sh_link      = 0          ,
+	.sh_info      = 0          ,
+	.sh_addralign = 4          ,
+	.sh_entsize   = 0         
+},
+/* Section Header #2 '.data' 0x124 */
+{
+	.sh_name      = 33         ,
+	.sh_type      = 1          , /* [SHT_PROGBITS] */
+	.sh_flags     = 3          ,
+	.sh_addr      = 0x0        ,
+	.sh_offset    = 120        , /* (bytes) */
+	.sh_size      = 0          , /* (bytes) */
+	.sh_link      = 0          ,
+	.sh_info      = 0          ,
+	.sh_addralign = 4          ,
+	.sh_entsize   = 0         
+},
+/* Section Header #3 '.bss' 0x14C */
+{
+	.sh_name      = 39         ,
+	.sh_type      = 8          , /* [SHT_NOBITS] */
+	.sh_flags     = 3          ,
+	.sh_addr      = 0x0        ,
+	.sh_offset    = 120        , /* (bytes) */
+	.sh_size      = 0          , /* (bytes) */
+	.sh_link      = 0          ,
+	.sh_info      = 0          ,
+	.sh_addralign = 4          ,
+	.sh_entsize   = 0         
+},
+/* Section Header #4 '.comment' 0x174 */
+{
+	.sh_name      = 44         ,
+	.sh_type      = 1          , /* [SHT_PROGBITS] */
+	.sh_flags     = 0          ,
+	.sh_addr      = 0x0        ,
+	.sh_offset    = 120        , /* (bytes) */
+	.sh_size      = 37         , /* (bytes) */
+	.sh_link      = 0          ,
+	.sh_info      = 0          ,
+	.sh_addralign = 1          ,
+	.sh_entsize   = 0         
+},
+/* Section Header #5 '.shstrtab' 0x19C */
+{
+	.sh_name      = 17         ,
+	.sh_type      = 3          , /* [SHT_STRTAB] */
+	.sh_flags     = 0          ,
+	.sh_addr      = 0x0        ,
+	.sh_offset    = 157 !!!    , /* (bytes) */
+	.sh_size      = 53         , /* (bytes) */
+	.sh_link      = 0          ,
+	.sh_info      = 0          ,
+	.sh_addralign = 1          ,
+	.sh_entsize   = 0         
+},
+/* Section Header #6 '.symtab' 0x1C4 */
+{
+	.sh_name      = 1          ,
+	.sh_type      = 2          , /* [SHT_SYMTAB] */
+	.sh_flags     = 0          ,
+	.sh_addr      = 0x0        ,
+	.sh_offset    = 532        , /* (bytes) */
+	.sh_size      = 112        , /* (bytes) */
+	.sh_link      = 7          ,
+	.sh_info      = 6          ,
+	.sh_addralign = 4          ,
+	.sh_entsize   = 16        
+},
+/* Section Header #7 '.strtab' 0x1EC */
+{
+	.sh_name      = 9          ,
+	.sh_type      = 3          , /* [SHT_STRTAB] */
+	.sh_flags     = 0          ,
+	.sh_addr      = 0x0        ,
+	.sh_offset    = 644        , /* (bytes) */
+	.sh_size      = 11         , /* (bytes) */
+	.sh_link      = 0          ,
+	.sh_info      = 0          ,
+	.sh_addralign = 1          ,
+	.sh_entsize   = 0         
+},
+},
+
+.dyns = dumpedelf_dyn_0,
+};
+Elf32_Dyn dumpedelf_dyn_0[] = {
+ /* no dynamic tags ! */ };

@@ -1,0 +1,294 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x4005a0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          6712 (bytes into file)
+  Flags:                             0x70001007, noreorder, pic, cpic, o32, mips32r2
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         11
+  Size of section headers:           40 (bytes)
+  Number of section headers:         33
+  Section header string table index: 30
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .interp           PROGBITS        00400194 000194 00000d 00   A  0   0  1
+  [ 2] .note.ABI-tag     NOTE            004001a4 0001a4 000020 00   A  0   0  4
+  [ 3] .MIPS.abiflags    MIPS_ABIFLAGS   004001c8 0001c8 000018 18   A  0   0  8
+  [ 4] .reginfo          MIPS_REGINFO    004001e0 0001e0 000018 18   A  0   0  4
+  [ 5] .note.gnu.build-i NOTE            004001f8 0001f8 000024 00   A  0   0  4
+  [ 6] .dynamic          DYNAMIC         0040021c 00021c 0000e0 08   A  9   0  4
+  [ 7] .hash             HASH            004002fc 0002fc 000048 04   A  8   0  4
+  [ 8] .dynsym           DYNSYM          00400344 000344 0000d0 10   A  9   1  4
+  [ 9] .dynstr           STRTAB          00400414 000414 0000ca 00   A  0   0  1
+  [10] .gnu.version      VERSYM          004004de 0004de 00001a 02   A  8   0  2
+  [11] .gnu.version_r    VERNEED         004004f8 0004f8 000020 00   A  9   1  4
+  [12] .init             PROGBITS        00400518 000518 000080 00  AX  0   0  4
+  [13] .text             PROGBITS        004005a0 0005a0 000390 00  AX  0   0 16
+  [14] .MIPS.stubs       PROGBITS        00400930 000930 000020 00  AX  0   0  4
+  [15] .fini             PROGBITS        00400950 000950 000044 00  AX  0   0  4
+  [16] .rodata           PROGBITS        00400994 000994 000004 04  AM  0   0  4
+  [17] .eh_frame         PROGBITS        00400998 000998 000004 00   A  0   0  4
+  [18] .ctors            PROGBITS        00410fec 000fec 000008 00  WA  0   0  4
+  [19] .dtors            PROGBITS        00410ff4 000ff4 000008 00  WA  0   0  4
+  [20] .jcr              PROGBITS        00410ffc 000ffc 000004 00  WA  0   0  4
+  [21] .data             PROGBITS        00411000 001000 000010 00  WA  0   0 16
+  [22] .rld_map          PROGBITS        00411010 001010 000004 00  WA  0   0  4
+  [23] .got              PROGBITS        00411020 001020 000040 04 WAp  0   0 16
+  [24] .sdata            PROGBITS        00411060 001060 000004 00 WAp  0   0  4
+  [25] .bss              NOBITS          00411070 001064 000010 00  WA  0   0 16
+  [26] .comment          PROGBITS        00000000 001064 000034 01  MS  0   0  1
+  [27] .pdr              PROGBITS        00000000 001098 000080 00      0   0  4
+  [28] .gnu.attributes   LOOS+ffffff5    00000000 001118 000010 00      0   0  1
+  [29] .mdebug.abi32     PROGBITS        00000000 001128 000000 00      0   0  1
+  [30] .shstrtab         STRTAB          00000000 001910 000126 00      0   0  1
+  [31] .symtab           SYMTAB          00000000 001128 000530 10     32  54  4
+  [32] .strtab           STRTAB          00000000 001658 0002b8 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings)
+  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  PHDR           0x000034 0x00400034 0x00400034 0x00160 0x00160 R E 0x4
+  INTERP         0x000194 0x00400194 0x00400194 0x0000d 0x0000d R   0x1
+      [Requesting program interpreter: /lib/ld.so.1]
+  ABIFLAGS       0x0001c8 0x004001c8 0x004001c8 0x00018 0x00018 R   0x8
+  REGINFO        0x0001e0 0x004001e0 0x004001e0 0x00018 0x00018 R   0x4
+  LOAD           0x000000 0x00400000 0x00400000 0x0099c 0x0099c R E 0x10000
+  LOAD           0x000fec 0x00410fec 0x00410fec 0x00078 0x00094 RW  0x10000
+  DYNAMIC        0x00021c 0x0040021c 0x0040021c 0x000e0 0x000e0 R   0x4
+  NOTE           0x0001a4 0x004001a4 0x004001a4 0x00020 0x00020 R   0x4
+  NOTE           0x0001f8 0x004001f8 0x004001f8 0x00024 0x00024 R   0x4
+  GNU_RELRO      0x000fec 0x00410fec 0x00410fec 0x00014 0x00014 R   0x1
+  NULL           0x000000 0x00000000 0x00000000 0x00000 0x00000     0x4
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     
+   01     .interp 
+   02     .MIPS.abiflags 
+   03     .reginfo 
+   04     .interp .note.ABI-tag .MIPS.abiflags .reginfo .note.gnu.build-id .dynamic .hash .dynsym .dynstr .gnu.version .gnu.version_r .init .text .MIPS.stubs .fini .rodata .eh_frame 
+   05     .ctors .dtors .jcr .data .rld_map .got .sdata .bss 
+   06     .dynamic 
+   07     .note.ABI-tag 
+   08     .note.gnu.build-id 
+   09     .ctors .dtors .jcr 
+   10     
+
+Dynamic section at offset 0x21c contains 23 entries:
+  Tag        Type                         Name/Value
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+ 0x0000000c (INIT)                       0x400518
+ 0x0000000d (FINI)                       0x400950
+ 0x00000004 (HASH)                       0x4002fc
+ 0x00000005 (STRTAB)                     0x400414
+ 0x00000006 (SYMTAB)                     0x400344
+ 0x0000000a (STRSZ)                      202 (bytes)
+ 0x0000000b (SYMENT)                     16 (bytes)
+ 0x70000016 (MIPS_RLD_MAP)               0x411010
+ 0x70000035 (MIPS_RLD_MAP_REL)           0x10dac
+ 0x00000015 (DEBUG)                      0x0
+ 0x00000003 (PLTGOT)                     0x411020
+ 0x70000001 (MIPS_RLD_VERSION)           1
+ 0x70000005 (MIPS_FLAGS)                 NOTPOT
+ 0x70000006 (MIPS_BASE_ADDRESS)          0x400000
+ 0x7000000a (MIPS_LOCAL_GOTNO)           11
+ 0x70000011 (MIPS_SYMTABNO)              13
+ 0x70000012 (MIPS_UNREFEXTNO)            30
+ 0x70000013 (MIPS_GOTSYM)                0x8
+ 0x6ffffffe (VERNEED)                    0x4004f8
+ 0x6fffffff (VERNEEDNUM)                 1
+ 0x6ffffff0 (VERSYM)                     0x4004de
+ 0x00000000 (NULL)                       0x0
+
+There are no relocations in this file.
+
+The decoding of unwind sections for machine type MIPS R3000 is not currently supported.
+
+Symbol table '.dynsym' contains 13 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 004008c4     8 FUNC    GLOBAL DEFAULT   13 __libc_csu_fini
+     2: 00000001     0 SECTION GLOBAL DEFAULT  ABS _DYNAMIC_LINKING
+     3: 00400994     4 OBJECT  GLOBAL DEFAULT   16 _IO_stdin_used
+     4: 00411010     0 OBJECT  GLOBAL DEFAULT   22 __RLD_MAP
+     5: 00400820   164 FUNC    GLOBAL DEFAULT   13 __libc_csu_init
+     6: 004007c4    80 FUNC    GLOBAL DEFAULT   13 main
+     7: 00400518     0 FUNC    GLOBAL DEFAULT   12 _init
+     8: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable
+     9: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses
+    10: 00400930     0 FUNC    GLOBAL DEFAULT  UND __libc_start_main@GLIBC_2.0 (2)
+    11: 00000000     0 FUNC    WEAK   DEFAULT  UND __gmon_start__
+    12: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab
+
+Symbol table '.symtab' contains 83 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00400194     0 SECTION LOCAL  DEFAULT    1 
+     2: 004001a4     0 SECTION LOCAL  DEFAULT    2 
+     3: 004001c8     0 SECTION LOCAL  DEFAULT    3 
+     4: 004001e0     0 SECTION LOCAL  DEFAULT    4 
+     5: 004001f8     0 SECTION LOCAL  DEFAULT    5 
+     6: 0040021c     0 SECTION LOCAL  DEFAULT    6 
+     7: 004002fc     0 SECTION LOCAL  DEFAULT    7 
+     8: 00400344     0 SECTION LOCAL  DEFAULT    8 
+     9: 00400414     0 SECTION LOCAL  DEFAULT    9 
+    10: 004004de     0 SECTION LOCAL  DEFAULT   10 
+    11: 004004f8     0 SECTION LOCAL  DEFAULT   11 
+    12: 00400518     0 SECTION LOCAL  DEFAULT   12 
+    13: 004005a0     0 SECTION LOCAL  DEFAULT   13 
+    14: 00400930     0 SECTION LOCAL  DEFAULT   14 
+    15: 00400950     0 SECTION LOCAL  DEFAULT   15 
+    16: 00400994     0 SECTION LOCAL  DEFAULT   16 
+    17: 00400998     0 SECTION LOCAL  DEFAULT   17 
+    18: 00410fec     0 SECTION LOCAL  DEFAULT   18 
+    19: 00410ff4     0 SECTION LOCAL  DEFAULT   19 
+    20: 00410ffc     0 SECTION LOCAL  DEFAULT   20 
+    21: 00411000     0 SECTION LOCAL  DEFAULT   21 
+    22: 00411010     0 SECTION LOCAL  DEFAULT   22 
+    23: 00411020     0 SECTION LOCAL  DEFAULT   23 
+    24: 00411060     0 SECTION LOCAL  DEFAULT   24 
+    25: 00411070     0 SECTION LOCAL  DEFAULT   25 
+    26: 00000000     0 SECTION LOCAL  DEFAULT   26 
+    27: 00000000     0 SECTION LOCAL  DEFAULT   27 
+    28: 00000000     0 SECTION LOCAL  DEFAULT   28 
+    29: 00000000     0 SECTION LOCAL  DEFAULT   29 
+    30: 00000000     0 FILE    LOCAL  DEFAULT  ABS /usr/lib/gcc-cross/mips-l
+    31: 004005f0     0 NOTYPE  LOCAL  DEFAULT   13 hlt
+    32: 00000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    33: 00410fec     0 OBJECT  LOCAL  DEFAULT   18 __CTOR_LIST__
+    34: 00410ff4     0 OBJECT  LOCAL  DEFAULT   19 __DTOR_LIST__
+    35: 00410ffc     0 OBJECT  LOCAL  DEFAULT   20 __JCR_LIST__
+    36: 00400600     0 FUNC    LOCAL  DEFAULT   13 deregister_tm_clones
+    37: 00400640     0 FUNC    LOCAL  DEFAULT   13 register_tm_clones
+    38: 0040068c     0 FUNC    LOCAL  DEFAULT   13 __do_global_dtors_aux
+    39: 00411070     1 OBJECT  LOCAL  DEFAULT   25 completed.6841
+    40: 00411074     4 OBJECT  LOCAL  DEFAULT   25 dtor_idx.6843
+    41: 0040073c     0 FUNC    LOCAL  DEFAULT   13 frame_dummy
+    42: 00000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    43: 00410ff0     0 OBJECT  LOCAL  DEFAULT   18 __CTOR_END__
+    44: 00400998     0 OBJECT  LOCAL  DEFAULT   17 __FRAME_END__
+    45: 00410ffc     0 OBJECT  LOCAL  DEFAULT   20 __JCR_END__
+    46: 004008d0     0 FUNC    LOCAL  DEFAULT   13 __do_global_ctors_aux
+    47: 00000000     0 FILE    LOCAL  DEFAULT  ABS ukazka2.c
+    48: 00000000     0 FILE    LOCAL  DEFAULT  ABS 
+    49: 00400930     0 FUNC    LOCAL  DEFAULT   14 _MIPS_STUBS_
+    50: 00410fec     0 NOTYPE  LOCAL  DEFAULT   18 __init_array_end
+    51: 0040021c     0 OBJECT  LOCAL  DEFAULT    6 _DYNAMIC
+    52: 00410fec     0 NOTYPE  LOCAL  DEFAULT   18 __init_array_start
+    53: 00419010     0 NOTYPE  LOCAL  DEFAULT   23 _gp
+    54: 004008c4     8 FUNC    GLOBAL DEFAULT   13 __libc_csu_fini
+    55: 00000001     0 SECTION GLOBAL DEFAULT  ABS _DYNAMIC_LINKING
+    56: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab
+    57: 00411000     0 OBJECT  WEAK   DEFAULT   21 data_start
+    58: 00411064     0 NOTYPE  GLOBAL DEFAULT   24 _edata
+    59: 00400950     0 FUNC    GLOBAL DEFAULT   15 _fini
+    60: 00410ff8     0 OBJECT  GLOBAL HIDDEN    19 __DTOR_END__
+    61: 00411000     0 OBJECT  GLOBAL DEFAULT   21 __data_start
+    62: 00000000     0 FUNC    WEAK   DEFAULT  UND __gmon_start__
+    63: 00411060     0 OBJECT  GLOBAL HIDDEN    24 __dso_handle
+    64: 00400790    52 FUNC    GLOBAL DEFAULT   13 sum
+    65: 00400994     4 OBJECT  GLOBAL DEFAULT   16 _IO_stdin_used
+    66: 00411000     0 NOTYPE  GLOBAL DEFAULT   21 _fdata
+    67: 00400930     0 FUNC    GLOBAL DEFAULT  UND __libc_start_main@@GLIBC_
+    68: 00411010     0 OBJECT  GLOBAL DEFAULT   22 __RLD_MAP
+    69: 00400820   164 FUNC    GLOBAL DEFAULT   13 __libc_csu_init
+    70: 00411080     0 NOTYPE  GLOBAL DEFAULT   25 _end
+    71: 00411064     0 NOTYPE  GLOBAL DEFAULT   25 __bss_start
+    72: 004007c4    80 FUNC    GLOBAL DEFAULT   13 main
+    73: 00000000     0 OBJECT  GLOBAL DEFAULT  UND _gp_disp
+    74: 004005a0     0 FUNC    GLOBAL DEFAULT   13 __start
+    75: 00000000     0 OBJECT  GLOBAL DEFAULT  UND __gnu_local_gp
+    76: 004005a0     0 NOTYPE  GLOBAL DEFAULT   13 _ftext
+    77: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses
+    78: 00411014     0 OBJECT  GLOBAL HIDDEN    22 __TMC_END__
+    79: 00411020     0 OBJECT  GLOBAL HIDDEN    23 _GLOBAL_OFFSET_TABLE_
+    80: 00411064     0 NOTYPE  GLOBAL DEFAULT   25 _fbss
+    81: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable
+    82: 00400518     0 FUNC    GLOBAL DEFAULT   12 _init
+
+Histogram for bucket list length (total of 3 buckets):
+ Length  Number     % of total  Coverage
+      0  3          (100.0%)
+
+Version symbols section '.gnu.version' contains 13 entries:
+ Addr: 00000000004004de  Offset: 0x0004de  Link: 8 (.dynsym)
+  000:   0 (*local*)       1 (*global*)      1 (*global*)      1 (*global*)   
+  004:   1 (*global*)      1 (*global*)      1 (*global*)      1 (*global*)   
+  008:   0 (*local*)       0 (*local*)       2 (GLIBC_2.0)     0 (*local*)    
+  00c:   0 (*local*)    
+
+Version needs section '.gnu.version_r' contains 1 entries:
+ Addr: 0x00000000004004f8  Offset: 0x0004f8  Link: 9 (.dynstr)
+  000000: Version: 1  File: libc.so.6  Cnt: 1
+  0x0010:   Name: GLIBC_2.0  Flags: none  Version: 2
+
+Displaying notes found at file offset 0x000001a4 with length 0x00000020:
+  Owner                 Data size	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 3.2.0
+
+Displaying notes found at file offset 0x000001f8 with length 0x00000024:
+  Owner                 Data size	Description
+  GNU                  0x00000014	NT_GNU_BUILD_ID (unique build ID bitstring)
+    Build ID: 701f018a28cb8117dcc056a945b3d87a64524560
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_MIPS_ABI_FP: Hard float (32-bit CPU, Any FPU)
+
+MIPS ABI Flags Version: 0
+
+ISA: MIPS32r2
+GPR size: 32
+CPR1 size: 32
+CPR2 size: 0
+FP ABI: Hard float (32-bit CPU, Any FPU)
+ISA Extension: None
+ASEs:
+	None
+FLAGS 1: 00000000
+FLAGS 2: 00000000
+
+Primary GOT:
+ Canonical gp value: 00419010
+
+ Reserved entries:
+   Address     Access  Initial Purpose
+  00411020 -32752(gp) 00000000 Lazy resolver
+  00411024 -32748(gp) 80000000 Module pointer (GNU extension)
+
+ Local entries:
+   Address     Access  Initial
+  00411028 -32744(gp) 004007c4
+  0041102c -32740(gp) 00400820
+  00411030 -32736(gp) 004008c4
+  00411034 -32732(gp) 00400000
+  00411038 -32728(gp) 00400518
+  0041103c -32724(gp) 00410fec
+  00411040 -32720(gp) 00000000
+  00411044 -32716(gp) 00000000
+  00411048 -32712(gp) 00000000
+
+ Global entries:
+   Address     Access  Initial Sym.Val. Type    Ndx Name
+  0041104c -32708(gp) 00000000 00000000 NOTYPE  UND _ITM_registerTMCloneTable
+  00411050 -32704(gp) 00000000 00000000 NOTYPE  UND _Jv_RegisterClasses
+  00411054 -32700(gp) 00400930 00400930 FUNC    UND __libc_start_main
+  00411058 -32696(gp) 00000000 00000000 FUNC    UND __gmon_start__
+  0041105c -32692(gp) 00000000 00000000 NOTYPE  UND _ITM_deregisterTMCloneTable
+
