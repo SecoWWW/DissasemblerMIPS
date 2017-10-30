@@ -1,25 +1,44 @@
 {
-  "type": [
-    {"id": "I","minValue": "","maxValue":"","length":},
-    {"id": "J","minValue": "","maxValue":"","length":},
-    {"id": "R","minValue": "000000","maxValue":"000000","length":},
-    {"id": "RI","minValue": "000001","maxValue":"000000","length":}
-  ],
+	"type": [{
+			"id": "I",
+			"minValue": "",
+			"maxValue": "",
+			"length": ""
+		},
+		{
+			"id": "J",
+			"minValue": "",
+			"maxValue": "",
+			"length": ""
+		},
+		{
+			"id": "R",
+			"minValue": "000000",
+			"maxValue": "000000",
+			"length": ""
+		},
+		{
+			"id": "RI",
+			"minValue": "000001",
+			"maxValue": "000000",
+			"length": ""
+		}
+	],
 
-  "I": [
-    ""
-  ],
+	"I": [
+		""
+	],
 
-  "J": [
+	"J": [
 
-  ],
+	],
 
-  "R": [
+	"R": [
 
-  ],
+	],
 
-  "RI": [
+	"RI": [
 
-  ]
+	]
 
 }
