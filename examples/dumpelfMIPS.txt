@@ -23,19 +23,19 @@ struct {
 		/* [8] EI_ABIVERSION: */ 0 ,
 		/* [9-15] EI_PAD:     */ 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
 	},
-	.e_type      = 1          , /* (ET_REL) */					2 bytes	
-	.e_machine   = 8          , /* (EM_MIPS) */					2 bytes
-	.e_version   = 1          , /* (EV_CURRENT) */				
-	.e_entry     = 0x0        , /* (start address at runtime) */
-	.e_phoff     = 0          , /* (bytes into file) */
-	.e_shoff     = 688        , /* (bytes into file) */
-	.e_flags     = 0x70001007 ,
-	.e_ehsize    = 52         , /* (bytes) */
-	.e_phentsize = 0          , /* (bytes) */
-	.e_phnum     = 0          , /* (program headers) */
-	.e_shentsize = 40         , /* (bytes) */
-	.e_shnum     = 14         , /* (section headers) */
-	.e_shstrndx  = 11        
+	.e_type      = 1          , /* (ET_REL) */					2 bytes	18
+	.e_machine   = 8          , /* (EM_MIPS) */					2 bytes	20
+	.e_version   = 1          , /* (EV_CURRENT) */				4 bytes	24
+	.e_entry     = 0x0        , /* (start address at runtime) */4 bytes	28
+	.e_phoff     = 0          , /* (bytes into file) */			4 bytes	32
+	.e_shoff     = 688        , /* (bytes into file) */			4 bytes	36
+	.e_flags     = 0x70001007 ,									4 bytes
+	.e_ehsize    = 52         , /* (bytes) */					2 bytes
+	.e_phentsize = 0          , /* (bytes) */					2 bytes
+	.e_phnum     = 0          , /* (program headers) */			2 bytes
+	.e_shentsize = 40         , /* (bytes) */					2 bytes
+	.e_shnum     = 14         , /* (section headers) */			2 bytes
+	.e_shstrndx  = 11        									2 bytes
 },
 
 .phdrs = {

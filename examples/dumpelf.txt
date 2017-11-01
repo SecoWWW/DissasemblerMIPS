@@ -24,18 +24,18 @@ struct {
 		/* [9-15] EI_PAD:     */ 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
 	},
 	.e_type      = 1          , /* (ET_REL)  						2 bytes*/
-	.e_machine   = 3   !!!    , /* (EM_386)  						2 bytes*/ = value of 8 pre MIPS
+	.e_machine   = 3   !!!    , /* (EM_386)  						2 bytes*/ = 18 off
 	.e_version   = 1          , /* (EV_CURRENT) 					4 bytes*/
 	.e_entry     = 0x0        , /* (start address at runtime) 		4 bytes*/
-	.e_phoff     = 0          , /* (bytes into file) 				4 bytes*/ = 32 bytes
-	.e_shoff     = 212 !!!    , /* (bytes into file) 				4 bytes*/ = 36 bytes
+	.e_phoff     = 0          , /* (bytes into file) 				4 bytes*/ = 28 off
+	.e_shoff     = 212 !!!    , /* (bytes into file) 				4 bytes*/ = 32 off
 	.e_flags     = 0x0        ,										4 bytes
 	.e_ehsize    = 52         , /* (bytes) */						2 bytes
-	.e_phentsize = 0          , /* (bytes) */						2 bytes
-	.e_phnum     = 0          , /* (program headers) */				2 bytes
-	.e_shentsize = 40  !!!    , /* (bytes) */						2 bytes
-	.e_shnum     = 8          , /* (section headers) */				2 bytes
-	.e_shstrndx  = 5         										2 bytes
+	.e_phentsize = 0          , /* (bytes) */						2 bytes		44
+	.e_phnum     = 0          , /* (program headers) */				2 bytes		46
+	.e_shentsize = 40  !!!    , /* (bytes) */						2 bytes		46 off
+	.e_shnum     = 8   !!!    , /* (section headers) */				2 bytes		48 off
+	.e_shstrndx  = 5         										2 bytes		52
 },
 
 .phdrs = {
