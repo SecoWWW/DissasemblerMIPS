@@ -1,4 +1,3 @@
-import binascii
 import sys
 
 def readElfHeader(file_location):
@@ -20,41 +19,45 @@ def readElfHeader(file_location):
             number_of_sections += int(chunk[i])*(256**(49-i))
 
         file.seek(section_offset)
-        text_index = []
+        text_indexes = []
         shstrtab_indexes = []
         for i in range(0,number_of_sections):
-            print("Section address: " + str(hex(section_offset+(section_size*i))))
+            #print("Section address: " + str(hex(section_offset+(section_size*i))))
             chunk = file.read(section_size)
             sh_type = 0
 
             for j in range(4,8):
                 sh_type += int(chunk[j])*(256**(7-j))
-            print("Section type: " + str(sh_type))
+            #print("Section type: " + str(sh_type))
             if(sh_type == 3):
                 shstrtab_indexes.append(int(i))
-                print("Found possible shstrtab section.")
+                #print("Found possible shstrtab section.")
             if(sh_type == 1):
-                text_index.append(i)
-                print("Found possible text section.")
+                text_indexes.append(i)
+                #print("Found possible text section.")
             print()
 
         print(len(shstrtab_indexes))
         print("shstrtab_indexes is " + repr(shstrtab_indexes))
-        print("text_index is " + repr(text_index))
+        print("text_index is " + repr(text_indexes))
 
         if shstrtab_indexes is None:
             sys.stderr.write("shstrtab_indexes is type None\n")
             return
 
         shstrtab_offset = findShstrtab(section_offset, section_size, shstrtab_indexes)
-        print(shstrtab_offset)
-        file.seek(shstrtab_offset+1)
+        #print(shstrtab_offset)
+        #file.seek(shstrtab_offset+1)
         # shstrtab_size = 100
         # string = ""
         # for i in range(0,shstrtab_size):
         #     chunk = file.read(1)
         #     string += chr(int(chunk[0]))
         # print(string)
+        text_offset, text_size = findText(section_offset, section_size, text_indexes, shstrtab_offset)
+        print("text_offset is: " + str(text_offset))
+        print("text_size is: " + str(text_size))
+
 
 
 
@@ -89,13 +92,33 @@ def findShstrtab(section_offset, section_size, indexes):
 
             file.seek(sh_offset+sh_name)
             name = file.read(len(".shstrtab"))
-            print(name.decode("utf-8"))
+            #print(name.decode("utf-8"))
             if(name.decode("utf-8") == ".shstrtab"):
-                print(sh_offset)
+                #print(sh_offset)
                 return sh_offset
 
 
+def findText(section_offset, section_size, text_indexes, shstrtab_offset):
+    with open(file_location, "rb") as file:
+        for i in text_indexes:
+            file.seek(section_offset+(section_size*i))
+            chunk = file.read(section_size)
 
+            sh_name = 0
+            for j in range(0, 4):
+                sh_name += int(chunk[j]) * (256 ** (3 - j))
+
+            file.seek(shstrtab_offset + sh_name)
+            name = file.read(len(".text"))
+            print(name.decode("utf-8"))
+            text_offset = 0
+            text_size = 0
+            if (name.decode("utf-8") == ".text"):
+                for j in range(16, 20):
+                    text_offset += int(chunk[j]) * (256 ** (19 - j))
+                for j in range(20, 24):
+                    text_size += int(chunk[j]) * (256 ** (23 - j))
+                return text_offset, text_size
 
 
 def biteOperations():
@@ -114,5 +137,5 @@ def biteOperations():
             else:
                 break
 
-file_location = "examples/Ukazka2/ukazka2.o"
+file_location = "examples/Ukazka3/ukazka3.o"
 readElfHeader(file_location)
