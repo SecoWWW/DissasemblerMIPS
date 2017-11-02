@@ -7,10 +7,10 @@ destin: ddddd
 shamt : SSSSS
 funct : ffffff
 
-37 instructions
+37 instructions             opcode      |       sssss       |       ttttt       |       ddddd       |       SSSSS       |       ffffff
 
-add $d, $s, $t
-addu $d, $s, $t
+add $d, $s, $t              000000              sssss               ttttt               ddddd               -----               ffffff
+addu $d, $s, $t             
 sub $d, $s, $t
 subu $d, $s, $t
 mult $s, $t

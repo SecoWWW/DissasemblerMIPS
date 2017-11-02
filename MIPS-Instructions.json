@@ -1,5 +1,5 @@
 {
-	"types": [{
+	"types1": [{
 			"id": "I",
 			"minValue": "",
 			"maxValue": "",
@@ -39,6 +39,29 @@
 
 	"RI": [
 
-	]
+	],
+	"types2":[
+        {
+            "type":"R",
+            "opcode":"000000",
+            "source":"5",
+            "target":"5",
+            "destination":"5",
+            "shamt":"5",
+            "func":"6"
+        },
+        {
+            "type":"RI",
+            "opcode":"000001",
+            "source":"5",
+            "regimm":"5",
+            "immcon":"16"
+        },
+        {
+            "type":"RI",
+            "opcode":"000001",
+            "address":"26"
+        }
+    ]
 
 }
