@@ -39,7 +39,7 @@ def readElfHeader():
             if sh_type == 1:
                 text_indexes.append(i)
                 # print("Found possible text section.")
-            print()
+            # print()
 
         print(len(shstrtab_indexes))
         print("shstrtab_indexes is " + repr(shstrtab_indexes))
