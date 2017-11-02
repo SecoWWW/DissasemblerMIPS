@@ -1,5 +1,5 @@
 {
-	"type": [{
+	"types": [{
 			"id": "I",
 			"minValue": "",
 			"maxValue": "",
@@ -20,7 +20,7 @@
 		{
 			"id": "RI",
 			"minValue": "000001",
-			"maxValue": "000000",
+			"maxValue": "000001",
 			"length": ""
 		}
 	],
