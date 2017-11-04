@@ -64,10 +64,10 @@ def readElfHeader():
                                           section_size,
                                           text_indexes,
                                           shstrtab_offset)
-        print("text_offset is: " + str(text_offset))
-        print("text_size is: " + str(text_size))
+        # print("text_offset is: " + str(text_offset))
+        # print("text_size is: " + str(text_size))
 
-        file.seek(text_offset)
+        # file.seek(text_offset)
         # for i in range(0,text_size,4):
         #     chunk = file.read(4)
         #     for j in range(0,4):
@@ -75,10 +75,10 @@ def readElfHeader():
         #     print()
 
 
-    print("Machine version: " + str(machine_version))
-    print("Section offset (from start of file): " + str(section_offset))
-    print("Each section header size: " + str(section_size))
-    print("Number of sections: " + str(number_of_sections))
+    # print("Machine version: " + str(machine_version))
+    # print("Section offset (from start of file): " + str(section_offset))
+    # print("Each section header size: " + str(section_size))
+    # print("Number of sections: " + str(number_of_sections))
 
 
 def findShstrtab(section_offset, section_size, indexes):

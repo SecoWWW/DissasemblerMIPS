@@ -1,6 +1,632 @@
 {
-    "instructions": [
-
-
+    "instructions": [{
+            "size": 37,
+            "R": [{
+                    "funct": 32,
+                    "syntax": "add $d, $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 33,
+                    "syntax": "addu $d, $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 34,
+                    "syntax": "sub $d, $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 35,
+                    "syntax": "subu $d, $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 35,
+                    "syntax": "subu $d, $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 24,
+                    "syntax": "mult $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 25,
+                    "syntax": "multu $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 26,
+                    "syntax": "div $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 27,
+                    "syntax": "divu $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 16,
+                    "syntax": "mfhi $d",
+                    "s": false,
+                    "t": false,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 17,
+                    "syntax": "mthi $s",
+                    "s": false,
+                    "t": false,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 18,
+                    "syntax": "mflo $d",
+                    "s": false,
+                    "t": false,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 19,
+                    "syntax": "mtlo $s",
+                    "s": false,
+                    "t": false,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 0,
+                    "syntax": "sll $d, $t, S",
+                    "s": false,
+                    "t": true,
+                    "d": true,
+                    "S": true
+                },
+                {
+                    "funct": 2,
+                    "syntax": "srl $d, $t, S",
+                    "s": false,
+                    "t": true,
+                    "d": true,
+                    "S": true
+                },
+                {
+                    "funct": 3,
+                    "syntax": "sra $d, $t, S",
+                    "s": false,
+                    "t": true,
+                    "d": true,
+                    "S": true
+                },
+                {
+                    "funct": 4,
+                    "syntax": "sllv $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 6,
+                    "syntax": "srlv $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 7,
+                    "syntax": "srav $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 42,
+                    "syntax": "slt $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 43,
+                    "syntax": "sltu $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 36,
+                    "syntax": "and $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 37,
+                    "syntax": "or $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 38,
+                    "syntax": "xor $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 39,
+                    "syntax": "nor $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 8,
+                    "syntax": "jr $s",
+                    "s": true,
+                    "t": false,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 9,
+                    "syntax": "jalr $s, $d",
+                    "s": true,
+                    "t": false,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 10,
+                    "syntax": "movz $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 11,
+                    "syntax": "movn $d, $t, $s",
+                    "s": true,
+                    "t": true,
+                    "d": true,
+                    "S": false
+                },
+                {
+                    "funct": 15,
+                    "syntax": "sync",
+                    "s": false,
+                    "t": false,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 12,
+                    "syntax": "syscall",
+                    "s": false,
+                    "t": false,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 13,
+                    "syntax": "break",
+                    "s": false,
+                    "t": false,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 48,
+                    "syntax": "tge $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 49,
+                    "syntax": "tgeu $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 50,
+                    "syntax": "tlt $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 51,
+                    "syntax": "tltu $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 52,
+                    "syntax": "teq $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                },
+                {
+                    "funct": 53,
+                    "syntax": "tne $s, $t",
+                    "s": true,
+                    "t": true,
+                    "d": false,
+                    "S": false
+                }
+            ]
+        },
+        {
+            "size": 14,
+            "RI": [{
+                    "regimm": 0,
+                    "syntax": "bltz $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 1,
+                    "syntax": "bgez $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 16,
+                    "syntax": "bltzal $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 17,
+                    "syntax": "bgezal $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 2,
+                    "syntax": "bltzl $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 3,
+                    "syntax": "bgezl $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 18,
+                    "syntax": "bltzall $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 19,
+                    "syntax": "bgezall $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 8,
+                    "syntax": "tgei $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 9,
+                    "syntax": "tgeiu $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 10,
+                    "syntax": "tlti $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 11,
+                    "syntax": "tltiu $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 12,
+                    "syntax": "teqi $s, C",
+                    "s": true,
+                    "C": true
+                },
+                {
+                    "regimm": 14,
+                    "syntax": "tnei $s, C",
+                    "s": true,
+                    "C": true
+                }
+            ]
+        },
+        {
+            "size": 2,
+            "J": [{
+                    "opcode": 2,
+                    "syntax": "j A"
+                },
+                {
+                    "opcode": 3,
+                    "syntax": "jal A"
+                }
+            ]
+        },
+        {
+            "size": 31,
+            "Ï": [{
+                    "opcode": 8,
+                    "syntax": "addi $t, $s, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 9,
+                    "syntax": "addiu $t, $s, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 10,
+                    "syntax": "slti $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 11,
+                    "syntax": "sltiu $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 12,
+                    "syntax": "andi $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 13,
+                    "syntax": "ori $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 14,
+                    "syntax": "xori $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 15,
+                    "syntax": "lui $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 4,
+                    "syntax": "beq $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 5,
+                    "syntax": "bne $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 6,
+                    "syntax": "blez $s, C",
+                    "s": true,
+                    "t": false,
+                    "C": true
+                },
+                {
+                    "opcode": 6,
+                    "syntax": "bgtz $s, C",
+                    "s": true,
+                    "t": false,
+                    "C": true
+                },
+                {
+                    "opcode": 20,
+                    "syntax": "beql $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 21,
+                    "syntax": "bnel $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 22,
+                    "syntax": "blezl $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 23,
+                    "syntax": "bgtzl $s, $t, C",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 32,
+                    "syntax": "lb $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 33,
+                    "syntax": "lh $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 34,
+                    "syntax": "lwl $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 35,
+                    "syntax": "lw $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 36,
+                    "syntax": "lbu $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 37,
+                    "syntax": "lhu $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 38,
+                    "syntax": "lwr $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 40,
+                    "syntax": "sb $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 41,
+                    "syntax": "sh $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 42,
+                    "syntax": "swl $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 43,
+                    "syntax": "sw $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 44,
+                    "syntax": "swr $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 48,
+                    "syntax": "ll $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 56,
+                    "syntax": "sc $t, C($s)",
+                    "s": true,
+                    "t": true,
+                    "C": true
+                },
+                {
+                    "opcode": 51,
+                    "syntax": "pref H, C($s)",
+                    "s": true,
+                    "H": true,
+                    "C": true
+                }
+            ]
+        }
     ]
 }
