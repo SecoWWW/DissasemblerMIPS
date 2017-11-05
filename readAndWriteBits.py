@@ -1,153 +1,57 @@
-import sys
+import json
+from pprint import pprint
 
 
-def readElfHeader():
-    with open(file_location, "rb") as file:
-        section_offset = 0
-        machine_version = 0
-        section_size = 0
-        number_of_sections = 0
+def openfile(file_name):
+    with open(str(file_name)) as code:
+        code = [code.rstrip('\n')]
+    return code
 
-        chunk = file.read(52)
-        for i in range(18, 20):
-            # start is at 18 and size is 2 bytes
-            machine_version += int(chunk[i])*(256**(19-i))
-        for i in range(32, 36):
-            # start is at 32 and size is 4 bytes
-            section_offset += int(chunk[i])*(256**(35-i))
-        for i in range(46, 48):
-            # start is at 46 and size is 2 bytes
-            section_size += int(chunk[i])*(256**(47-i))
-        for i in range(48, 50):
-            # start is at 48 and size is 2 bytes
-            number_of_sections += int(chunk[i])*(256**(49-i))
-
-        file.seek(section_offset)
-        text_indexes = []
-        shstrtab_indexes = []
-        for i in range(0, number_of_sections):
-            # print("Section address: " + str(hex(section_offset+(section_size*i))))
-            chunk = file.read(section_size)
-            sh_type = 0
-
-            for j in range(4, 8):
-                sh_type += int(chunk[j])*(256**(7-j))
-            # print("Section type: " + str(sh_type))
-            if sh_type == 3:
-                shstrtab_indexes.append(int(i))
-                # print("Found possible shstrtab section.")
-            if sh_type == 1:
-                text_indexes.append(i)
-                # print("Found possible text section.")
-            # print()
-
-        print(len(shstrtab_indexes))
-        print("shstrtab_indexes is " + repr(shstrtab_indexes))
-        print("text_index is " + repr(text_indexes))
-
-        if shstrtab_indexes is None:
-            sys.stderr.write("shstrtab_indexes is type None\n")
-            return
-
-        shstrtab_offset = findShstrtab(section_offset,
-                                       section_size,
-                                       shstrtab_indexes)
-        # print(shstrtab_offset)
-        # file.seek(shstrtab_offset+1)
-        # shstrtab_size = 100
-        # string = ""
-        # for i in range(0,shstrtab_size):
-        #     chunk = file.read(1)
-        #     string += chr(int(chunk[0]))
-        # print(string)
-        text_offset, text_size = findText(section_offset,
-                                          section_size,
-                                          text_indexes,
-                                          shstrtab_offset)
-        # print("text_offset is: " + str(text_offset))
-        # print("text_size is: " + str(text_size))
-
-        # file.seek(text_offset)
-        # for i in range(0,text_size,4):
-        #     chunk = file.read(4)
-        #     for j in range(0,4):
-        #         print(format(int(chunk[j]), "x"),end="")
-        #     print()
+def typeoffile(file):
+    file[0]
 
 
-    # print("Machine version: " + str(machine_version))
-    # print("Section offset (from start of file): " + str(section_offset))
-    # print("Each section header size: " + str(section_size))
-    # print("Number of sections: " + str(number_of_sections))
 
 
-def findShstrtab(section_offset, section_size, indexes):
-    if len(indexes) <= 0:
-        sys.stderr.write("In findShstrtab() empty list was send\n")
-        return 0
 
-    with open(file_location, "rb") as file:
-        for i in indexes:
-            file.seek(section_offset+(i*section_size))
-            chunk = file.read(section_size)
+# pprint(instructions)
 
-            sh_name = 0
-            sh_size = 0
-            sh_offset = 0
+# print("{0:0{1}x}".format(40, 8)) # vypis adresy
+# a mod b == a % b
+# obycajny branch
+# PC = i + 4
+# C = (C << 2) % 65536
+# C = (C if C<2**15 else C-2**16)
+# PC = hex(PC+C)
+PC = 104 + 4
+C = (65519 << 2) % 65536
+C = (C if C<2**15 else C-2**16)
+print("{0:0{1}x}".format(PC+C, 8))
+# # Type J instruction
+# PC = i
+# PC = (PC & 4026531840 | (A << 2))
+# PC = (PC if PC<2**31 else PC-2**32)
+PC = 54
+PC =  (PC & 4026531840) | (67108863 << 2)
+PC = (PC if PC<2**31 else PC-2**32)
+print("{0:0{1}x}".format(PC, 8))
+print(int("1101",2))
+# i + 4 + (C << 2) % 65536 / 4 # 256**2 <-- pre vypocet adressy branch
+with open('instructions.json') as data:
+    instructions = json.load(data)
 
-            for j in range(0, 4):
-                sh_name += int(chunk[j]) * (256 ** (3 - j))
-            for j in range(16, 20):
-                sh_offset += int(chunk[j]) * (256 ** (19 - j))
-            for j in range(20, 24):
-                sh_size += int(chunk[j]) * (256 ** (23 - j))
+    # print(instructions["instructions"][0]["R"])
+    for itterator in instructions["instructions"][0]["R"]:
+        print(itterator["funct"])
+# with open('instructions.json', "r") as data:
+#     data.seek(12450)
+#     chunk = data.read(100)
+#     print(chunk)
 
-            file.seek(sh_offset+sh_name)
-            name = file.read(len(".shstrtab"))
-            # print(name.decode("utf-8"))
-            if name.decode("utf-8") == ".shstrtab":
-                # print(sh_offset)
-                return sh_offset
-
-
-def findText(section_offset, section_size, text_indexes, shstrtab_offset):
-    with open(file_location, "rb") as file:
-        for i in text_indexes:
-            file.seek(section_offset+(section_size*i))
-            chunk = file.read(section_size)
-
-            sh_name = 0
-            for j in range(0, 4):
-                sh_name += int(chunk[j]) * (256 ** (3 - j))
-
-            file.seek(shstrtab_offset + sh_name)
-            name = file.read(len(".text"))
-            print(name.decode("utf-8"))
-            text_offset = 0
-            text_size = 0
-            if name.decode("utf-8") == ".text":
-                for j in range(16, 20):
-                    text_offset += int(chunk[j]) * (256 ** (19 - j))
-                for j in range(20, 24):
-                    text_size += int(chunk[j]) * (256 ** (23 - j))
-                return text_offset, text_size
+if __name__ == "__main__":
+    print("Hlavna funkcia")
+else:
+    print("Importovana funkcia")
 
 
-def biteOperations():
-    with open("input.txt", "rb") as file:
-        while True:
-            chunk = file.read(1024)
-            if chunk:
-                for b in chunk:
-                    print(bin(b)[2:])
-                    for i in range(0,8):
-                        byte = b & 128
-                        print(bin(byte)[2:3],end='')
-                        b = b << 1
-                    print()
 
-            else:
-                break
-
-file_location = "examples/Ukazka1/ukazka1.o"
-readElfHeader()

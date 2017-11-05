@@ -409,7 +409,7 @@
         },
         {
             "size": 31,
-            "Ï": [{
+            "I": [{
                     "opcode": 8,
                     "syntax": "addi $t, $s, C",
                     "s": true,
