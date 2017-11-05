@@ -31,18 +31,19 @@ print("{0:0{1}x}".format(PC+C, 8))
 # PC = i
 # PC = (PC & 4026531840 | (A << 2))
 # PC = (PC if PC<2**31 else PC-2**32)
-PC = 54
-PC =  (PC & 4026531840) | (67108863 << 2)
+PC = 432
+PC = (PC & int("0xf0000000", 16)) | (14745312 << 2)
 PC = (PC if PC<2**31 else PC-2**32)
 print("{0:0{1}x}".format(PC, 8))
 print(int("1101",2))
 # i + 4 + (C << 2) % 65536 / 4 # 256**2 <-- pre vypocet adressy branch
-with open('instructions.json') as data:
-    instructions = json.load(data)
+# with open('instructions.json') as data:
+#     instructions = json.load(data)
 
     # print(instructions["instructions"][0]["R"])
-    for itterator in instructions["instructions"][0]["R"]:
-        print(itterator["funct"])
+    # for itterator in instructions["instructions"][0]["R"]:
+    #     if itterator["s"] == True:
+    #         print(itterator["s"])
 # with open('instructions.json', "r") as data:
 #     data.seek(12450)
 #     chunk = data.read(100)

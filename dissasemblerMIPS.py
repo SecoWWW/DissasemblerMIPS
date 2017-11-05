@@ -1,4 +1,5 @@
 import sys
+import json
 
 
 def readElfHeader():
@@ -137,6 +138,7 @@ def findText(section_offset, section_size, text_indexes, shstrtab_offset):
 def dissasemble(offset, size):
     with open(file_location, "rb") as file:
         file.seek(offset)
+        dissassembled_code = []
         for i in range(0,size,4):
             instruction = file.read(4)
 
@@ -149,6 +151,7 @@ def dissasemble(offset, size):
             imm_S = ""
             imm_C = ""
             add_A = ""
+
             # for b in instruction:
             #     print("Whole byte: "+ str(bin(b)[2:]))
             #     for j in range(0, 6):
@@ -157,50 +160,269 @@ def dissasemble(offset, size):
             #         opcode += str(bin(byte)[2:3])
             #         b = b << 1
             #     print(opcode)
-            print("Whole byte 0: " + str(hex(instruction[0])))# 31 - 24
-            print("Whole byte 1: " + str(hex(instruction[1])))# 23 - 16
-            print("Whole byte 2: " + str(hex(instruction[2])))# 15 - 8
-            print("Whole byte 3: " + str(hex(instruction[3])))# 7 - 0
-            byte = instruction[0]
-            for i in range(0,6):
-                # 6 bits of 31 = 26 bits
+            # print("Whole byte 0: " + str(hex(instruction[0])) + " " + bin(instruction[0]))# 31 - 24
+            # print("Whole byte 1: " + str(hex(instruction[1])) + " " + bin(instruction[1]))# 23 - 16
+            # print("Whole byte 2: " + str(hex(instruction[2])) + " " + bin(instruction[2]))# 15 - 8
+            # print("Whole byte 3: " + str(hex(instruction[3])) + " " + bin(instruction[3]))# 7 - 0
+
+            byte = instruction[0]               # first bit
+            for j in range(0,6):
+                # 6 bits of 32 = 26 bits
                 b = byte & 128
                 opcode += str(bin(b)[2:3])
                 byte = byte << 1
 
             if opcode == "000000":
-                print("R type instruction")
-
-                for i in range(0,2):
+                # print("R type instruction")
+                for j in range(0,2):
                     # 2 bits of 26 = 24 bits
-                    b = byte % 128
+                    b = byte & 128
                     reg_s += str(bin(b)[2:3])
                     byte = byte << 1
-                byte = instruction[1]
-                # next byte
-                for i in range(0,3):
+                byte = instruction[1]           # second bit
+                for j in range(0,3):
                     # 3 bits of 24 bits = 21 bits
                     b = byte & 128
                     reg_s += str(bin(b)[2:3])
                     byte = byte << 1
-                for i in range(0,5):
+                for j in range(0,5):
                     # 5 bits of 21 = 16 bits
                     b = byte & 128
                     reg_t += str(bin(b)[2:3])
                     byte = byte << 1
-                byte = instruction[2]
-                for i in range (0,5):
+                byte = instruction[2]           # third bit
+                for j in range(0,5):
                     # 5 bits of 16 = 11 bits
+                    b = byte & 128
+                    reg_d += str(bin(b)[2:3])
+                    byte = byte << 1
+                for j in range(0,3):
+                    # 3 bits of 11 bits = 8 bits
+                    b = byte & 128
+                    imm_S += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[3]           # fourth bit
+                for j in range(0,2):
+                    # 2 bits of 8 = 6 bits
+                    b = byte & 128
+                    imm_S += str(bin(b)[2:3])
+                    byte = byte << 1
+                for j in range(0,6):
+                    # 6 bits of 6 = 0 bits
+                    b = byte & 128
+                    funct += str(bin(b)[2:3])
+                    byte = byte << 1
+                # print(" opcode: "+ str(int(opcode, 2)) +" reg_s: "+ str(int(reg_s, 2)) +" reg_t: "+str(int(reg_t, 2))
+                #       +" reg_d: "+str(int(reg_d, 2)) +" imm_S: "+str(int(imm_S, 2)) +" funct: "+str(int(funct, 2)))
+
+                reg_s = registerName(int(reg_s, 2))
+                reg_t = registerName(int(reg_t, 2))
+                reg_d = registerName(int(reg_d, 2))
+                imm_S = int(imm_S, 2)
+                funct = int(funct, 2)
+
+                # print(" opcode: " + str(int(opcode, 2)) + " reg_s: " + str(reg_s) + " reg_t: " + str(reg_t)
+                #       + " reg_d: " + str(reg_d) + " imm_S " + str(imm_S) + " funct: " + str(funct))
+                with open("instructions.json", "r") as json_file:
+                    instructions = json.load(json_file)
+                    if reg_s == "$zero" and reg_t == "$zero" and reg_d == "$zero" and imm_S == 0 and funct == 0:
+                        syntax = "{0:0{1}x}".format(i, 8)
+                        syntax += "    nop"
+                        dissassembled_code.append(syntax)
+                        continue
+                    for itterator in instructions["instructions"][0]["R"]:
+                        if itterator["funct"] == funct:
+                            syntax = "{0:0{1}x}".format(i, 8)
+                            syntax += "    " + itterator["syntax"]
+                            if itterator["s"] == True:
+                                syntax = syntax.replace("$s", reg_s)
+                            if itterator["t"] == True:
+                                syntax = syntax.replace("$t", reg_t)
+                            if itterator["d"] == True:
+                                syntax = syntax.replace("$d", reg_d)
+                            if itterator["S"] == True:
+                                syntax = syntax.replace("S", str(imm_S))
+                            dissassembled_code.append(syntax)
+                            break
+
+
+
+            elif opcode == "000001":
+                # print("RI type instruction")
+
+                for j in range(0,2):            # first byte
+                    # 2 bits of 26 = 24 bits
+                    b = byte & 128
+                    reg_s += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[1]           # second byte
+                for j in range(0,3):
+                    # 3 bits of 24 bits = 21 bits
+                    b = byte & 128
+                    reg_s += str(bin(b)[2:3])
+                    byte = byte << 1
+                for j in range(0,5):
+                    # 5 bits of 21 = 16 bits
+                    b = byte & 128
+                    regimm += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[2]           # third byte
+                for j in range(0,8):
+                    # 8 bits of 16 = 8 bits
+                    b = byte & 128
+                    imm_C += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[3]           # fourth byte
+                for j in range(0,8):
+                    # 8 bits of 8 bits = 0 bits
+                    b = byte & 128
+                    imm_C += str(bin(b)[2:3])
+                    byte = byte << 1
+                imm_C = int(imm_C, 2)
+                imm_C = (imm_C if imm_C < 2**15 else imm_C - 2**16)
+                # print("opcode: "+ str(int(opcode, 2)) +" reg_s: "+ str(int(reg_s, 2)) +" regimm: "+str(int(regimm, 2))
+                #       +" imm_C "+str(imm_C))
+
+                reg_s = registerName(int(reg_s, 2))
+                regimm = int(regimm, 2)
+
+                # print("opcode: " + str(int(opcode, 2)) + " reg_s: " + str(reg_s) + " regimm: " + str(regimm)
+                #       + " imm_C " + str(imm_C))
+                with open("instructions.json", "r") as json_file:
+                    instructions = json.load(json_file)
+                    for itterator in instructions["instructions"][1]["RI"]:
+                        if itterator["regimm"] == regimm:
+                            syntax = "{0:0{1}x}".format(i, 8)
+                            syntax += "    " + itterator["syntax"]
+                            if itterator["s"] == True:
+                                syntax = syntax.replace("$s", reg_s)
+                            if itterator["C"] == True:
+                                if syntax[12] == 'b':
+                                    # syntax += "it is branch instruction"
+                                    PC = i + 4
+                                    imm_C = (imm_C << 2) % 65536
+                                    imm_C = (imm_C if imm_C < 2**15 else imm_C-2**16)
+                                    imm_C = "loc_" + "{0:0{1}x}".format(PC + imm_C, 8)
+                                syntax = syntax.replace("C", str(imm_C))
+
+                            dissassembled_code.append(syntax)
+                            break
+
+            elif (opcode == "000010" or opcode == "000011"):
+                # print("J type instruction")
+
+                for j in range(0, 2):            # first byte
+                    # 2 bits of 26 = 24 bits
+                    b = byte & 128
+                    add_A += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[1]           # second byte
+                for j in range(0, 8):
+                    # 8 bits of 24 = 16 bits
+                    b = byte & 128
+                    add_A += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[2]           # third byte
+                for j in range(0, 8):
+                    # 8 bits of 16 = 8 bits
+                    b = byte & 128
+                    add_A += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[3]           # fourth byte
+                for j in range(0, 8):
+                    # 8 bits of 8 = 0 bits
+                    b = byte & 128
+                    add_A += str(bin(b)[2:3])
+                    byte = byte << 1
+
+                opcode = int(opcode, 2)
+                add_A = int(add_A, 2)
+                PC = i
+                PC = (PC & int("0xf0000000", 16)) | (add_A << 2)
+                add_A = (PC if PC < 2 ** 31 else PC - 2 ** 32)
+
+                # print("opcode: " + str(opcode) + " add_A: " + str(add_A))
+
+                with open("instructions.json", "r") as json_file:
+                    instructions = json.load(json_file)
+                    for itterator in instructions["instructions"][2]["J"]:
+                        if itterator["opcode"] == opcode:
+                            syntax = "{0:0{1}x}".format(i, 8)
+                            syntax += "    " + itterator["syntax"]
+                            syntax = syntax.replace("A", "loc_"+"{0:0{1}x}".format(add_A, 8))
+                            dissassembled_code.append(syntax)
+                            break
+
+
+            else:
+                # print("I type instruction")
+                for j in range(0,2):            # first byte
+                    # 2 bits of 26 = 24 bits
+                    b = byte & 128
+                    reg_s += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[1]           # second byte
+                for j in range(0,3):
+                    # 3 bits of 24 bits = 21 bits
+                    b = byte & 128
+                    reg_s += str(bin(b)[2:3])
+                    byte = byte << 1
+                for j in range(0,5):
+                    # 5 bits of 21 = 16 bits
                     b = byte & 128
                     reg_t += str(bin(b)[2:3])
                     byte = byte << 1
+                byte = instruction[2]           # third byte
+                for j in range(0,8):
+                    # 8 bits of 16 = 8 bits
+                    b = byte & 128
+                    imm_C += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[3]           # fourth byte
+                for j in range(0,8):
+                    # 8 bits of 8 bits = 0 bits
+                    b = byte & 128
+                    imm_C += str(bin(b)[2:3])
+                    byte = byte << 1
+                imm_C = int(imm_C, 2)
+                imm_C = (imm_C if imm_C<2**15 else imm_C-2**16)
 
-            elif opcode == "000001":
-                print("RI type instruction")
-            elif opcode == "000001":
-                print("J type instruction")
-            else:
-                print("I type instruction")
+                # print("opcode: "+str(int(opcode, 2)) + " reg_s: " + str(int(reg_s, 2)) + " reg_t: " + str(int(reg_t, 2))
+                #       + " imm_C: "+ str(imm_C))
+
+                opcode = int(opcode, 2)
+                reg_s = registerName(int(reg_s, 2))
+                reg_t = registerName(int(reg_t, 2))
+
+                # print("opcode: " + str(opcode) + " reg_s: " + str(reg_s) + " reg_t: " + str(reg_t)
+                #       + " imm_C: " + str(imm_C))
+
+                with open("instructions.json", "r") as json_file:
+                    instructions = json.load(json_file)
+                    for itterator in instructions["instructions"][3]["I"]:
+                        if itterator["opcode"] == opcode:
+                            syntax = "{0:0{1}x}".format(i, 8)
+                            syntax += "    " + itterator["syntax"]
+                            if itterator["s"] == True:
+                                syntax = syntax.replace("$s", reg_s)
+                            if itterator["t"] == True:
+                                syntax = syntax.replace("$t", reg_t)
+                            if itterator["C"] == True:
+                                if syntax[12] == 'b':
+                                    # syntax += "it is branch instruction"
+                                    PC = i + 4
+                                    imm_C = (imm_C << 2) % 65536
+                                    imm_C = (imm_C if imm_C < 2**15 else imm_C-2**16)
+                                    imm_C = "loc_" + "{0:0{1}x}".format(PC + imm_C, 8)
+                                syntax = syntax.replace("C", str(imm_C))
+                            dissassembled_code.append(syntax)
+                            break
+    with open("vysledok.txt", "w") as file:
+        for output_line in dissassembled_code:
+            file.write(output_line + "\n")
+
+
+
 
 
 def registerName(number):
@@ -285,5 +507,5 @@ def biteOperations():
             else:
                 break
 
-file_location = "examples/Ukazka1/ukazka1.o"
+file_location = "examples/Ukazka2/ukazka2.o"
 readElfHeader()
