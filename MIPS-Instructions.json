@@ -3,7 +3,7 @@
             "type": "R",
             "opcode": {
                 "type": "special",
-                "size": "6",
+                "size": "6", //31 - 26
                 "values": ["0"]
             },
             "source": {

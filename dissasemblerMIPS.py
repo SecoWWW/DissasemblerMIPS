@@ -157,14 +157,43 @@ def dissasemble(offset, size):
             #         opcode += str(bin(byte)[2:3])
             #         b = b << 1
             #     print(opcode)
-            # print("Whole byte: " + str(bin(instruction[0])[2:]))
+            print("Whole byte 0: " + str(hex(instruction[0])))# 31 - 24
+            print("Whole byte 1: " + str(hex(instruction[1])))# 23 - 16
+            print("Whole byte 2: " + str(hex(instruction[2])))# 15 - 8
+            print("Whole byte 3: " + str(hex(instruction[3])))# 7 - 0
             byte = instruction[0]
             for i in range(0,6):
+                # 6 bits of 31 = 26 bits
                 b = byte & 128
                 opcode += str(bin(b)[2:3])
                 byte = byte << 1
+
             if opcode == "000000":
                 print("R type instruction")
+
+                for i in range(0,2):
+                    # 2 bits of 26 = 24 bits
+                    b = byte % 128
+                    reg_s += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[1]
+                # next byte
+                for i in range(0,3):
+                    # 3 bits of 24 bits = 21 bits
+                    b = byte & 128
+                    reg_s += str(bin(b)[2:3])
+                    byte = byte << 1
+                for i in range(0,5):
+                    # 5 bits of 21 = 16 bits
+                    b = byte & 128
+                    reg_t += str(bin(b)[2:3])
+                    byte = byte << 1
+                byte = instruction[2]
+                for i in range (0,5):
+                    # 5 bits of 16 = 11 bits
+                    b = byte & 128
+                    reg_t += str(bin(b)[2:3])
+                    byte = byte << 1
 
             elif opcode == "000001":
                 print("RI type instruction")
@@ -256,5 +285,5 @@ def biteOperations():
             else:
                 break
 
-file_location = "examples/Ukazka2/ukazka2.o"
+file_location = "examples/Ukazka1/ukazka1.o"
 readElfHeader()

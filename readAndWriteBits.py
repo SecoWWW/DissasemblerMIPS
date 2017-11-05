@@ -47,6 +47,11 @@ with open('instructions.json') as data:
 #     data.seek(12450)
 #     chunk = data.read(100)
 #     print(chunk)
+with open("test.txt","w") as text:
+    text.write("Prva veta.")
+    text.write("druha veta.")
+    text.seek(0)
+    text.write("Treria veta.")
 
 if __name__ == "__main__":
     print("Hlavna funkcia")
