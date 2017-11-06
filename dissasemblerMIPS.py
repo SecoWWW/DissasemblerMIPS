@@ -42,9 +42,10 @@ def readElfHeader():
                 # print("Found possible text section.")
             # print()
 
-        print(len(shstrtab_indexes))
-        print("shstrtab_indexes is " + repr(shstrtab_indexes))
-        print("text_index is " + repr(text_indexes))
+        #
+        # print(len(shstrtab_indexes))
+        # print("shstrtab_indexes is " + repr(shstrtab_indexes))
+        # print("text_index is " + repr(text_indexes))
 
         if shstrtab_indexes is None:
             sys.stderr.write("shstrtab_indexes is type None\n")
@@ -125,7 +126,7 @@ def findText(section_offset, section_size, text_indexes, shstrtab_offset):
 
             file.seek(shstrtab_offset + sh_name)
             name = file.read(len(".text"))
-            print(name.decode("utf-8"))
+            # print(name.decode("utf-8"))
             text_offset = 0
             text_size = 0
             if name.decode("utf-8") == ".text":
@@ -135,10 +136,14 @@ def findText(section_offset, section_size, text_indexes, shstrtab_offset):
                     text_size += int(chunk[j]) * (256 ** (23 - j))
                 return text_offset, text_size
 
+
 def dissasemble(offset, size):
     with open(file_location, "rb") as file:
         file.seek(offset)
         dissassembled_code = []
+        dissassembled_code.append("address  bytes       decoded instructions")
+        dissassembled_code.append("-----------------------------------------")
+        address_label = []
         for i in range(0,size,4):
             instruction = file.read(4)
 
@@ -227,12 +232,18 @@ def dissasemble(offset, size):
                     instructions = json.load(json_file)
                     if reg_s == "$zero" and reg_t == "$zero" and reg_d == "$zero" and imm_S == 0 and funct == 0:
                         syntax = "{0:0{1}x}".format(i, 8)
+                        syntax += " " + "{0:0{1}x}".format(int(instruction[0]), 2) + "{0:0{1}x}".format(
+                            int(instruction[1]), 2) + "{0:0{1}x}".format(int(instruction[2]), 2) \
+                                  + "{0:0{1}x}".format(int(instruction[3]), 2)
                         syntax += "    nop"
                         dissassembled_code.append(syntax)
                         continue
                     for itterator in instructions["instructions"][0]["R"]:
                         if itterator["funct"] == funct:
                             syntax = "{0:0{1}x}".format(i, 8)
+                            syntax += " " + "{0:0{1}x}".format(int(instruction[0]), 2) + "{0:0{1}x}".format(
+                                int(instruction[1]), 2) + "{0:0{1}x}".format(int(instruction[2]), 2) \
+                                      + "{0:0{1}x}".format(int(instruction[3]), 2)
                             syntax += "    " + itterator["syntax"]
                             if itterator["s"] == True:
                                 syntax = syntax.replace("$s", reg_s)
@@ -293,16 +304,22 @@ def dissasemble(offset, size):
                     for itterator in instructions["instructions"][1]["RI"]:
                         if itterator["regimm"] == regimm:
                             syntax = "{0:0{1}x}".format(i, 8)
+                            syntax += " " + "{0:0{1}x}".format(int(instruction[0]), 2) + "{0:0{1}x}".format(
+                                int(instruction[1]), 2) + "{0:0{1}x}".format(int(instruction[2]), 2) \
+                                      + "{0:0{1}x}".format(int(instruction[3]), 2)
                             syntax += "    " + itterator["syntax"]
                             if itterator["s"] == True:
                                 syntax = syntax.replace("$s", reg_s)
                             if itterator["C"] == True:
-                                if syntax[12] == 'b':
+                                if syntax[21] == 'b':
                                     # syntax += "it is branch instruction"
                                     PC = i + 4
                                     imm_C = (imm_C << 2) % 65536
                                     imm_C = (imm_C if imm_C < 2**15 else imm_C-2**16)
-                                    imm_C = "loc_" + "{0:0{1}x}".format(PC + imm_C, 8)
+                                    address = "{0:0{1}x}".format(PC + imm_C, 8)
+                                    imm_C = "loc_" + address
+                                    address_label.append(address + "     " + imm_C)
+
                                 syntax = syntax.replace("C", str(imm_C))
 
                             dissassembled_code.append(syntax)
@@ -348,8 +365,18 @@ def dissasemble(offset, size):
                     for itterator in instructions["instructions"][2]["J"]:
                         if itterator["opcode"] == opcode:
                             syntax = "{0:0{1}x}".format(i, 8)
+                            syntax += " " + "{0:0{1}x}".format(int(instruction[0]), 2) + "{0:0{1}x}".format(
+                                int(instruction[1]), 2) + "{0:0{1}x}".format(int(instruction[2]), 2) \
+                                      + "{0:0{1}x}".format(int(instruction[3]), 2)
                             syntax += "    " + itterator["syntax"]
-                            syntax = syntax.replace("A", "loc_"+"{0:0{1}x}".format(add_A, 8))
+                            address = "{0:0{1}x}".format(add_A, 8)
+                            address_label.append(address + "     " + "loc_" + address)
+                            # for j in range(0, len(dissassembled_code)):
+                            #     if str.rfind(dissassembled_code[j], address, 0, 8) != -1:
+                            #         dissassembled_code.insert(j, address + "     " + add_A)
+                            #         break
+
+                            syntax = syntax.replace("A", "loc_"+address)
                             dissassembled_code.append(syntax)
                             break
 
@@ -402,21 +429,39 @@ def dissasemble(offset, size):
                     for itterator in instructions["instructions"][3]["I"]:
                         if itterator["opcode"] == opcode:
                             syntax = "{0:0{1}x}".format(i, 8)
+                            syntax += " " + "{0:0{1}x}".format(int(instruction[0]), 2) + "{0:0{1}x}".format(
+                                int(instruction[1]), 2) + "{0:0{1}x}".format(int(instruction[2]), 2) \
+                                      + "{0:0{1}x}".format(int(instruction[3]), 2)
                             syntax += "    " + itterator["syntax"]
                             if itterator["s"] == True:
                                 syntax = syntax.replace("$s", reg_s)
                             if itterator["t"] == True:
                                 syntax = syntax.replace("$t", reg_t)
                             if itterator["C"] == True:
-                                if syntax[12] == 'b':
+                                if syntax[21] == 'b':
                                     # syntax += "it is branch instruction"
                                     PC = i + 4
                                     imm_C = (imm_C << 2) % 65536
                                     imm_C = (imm_C if imm_C < 2**15 else imm_C-2**16)
-                                    imm_C = "loc_" + "{0:0{1}x}".format(PC + imm_C, 8)
+                                    address = "{0:0{1}x}".format(PC + imm_C, 8)
+                                    imm_C = "loc_" + address
+                                    address_label.append(address + "     " + imm_C)
+
+
                                 syntax = syntax.replace("C", str(imm_C))
                             dissassembled_code.append(syntax)
                             break
+    for i in range(0,len(dissassembled_code)):
+        for j in range(0,len(address_label)):
+            if str.rfind(dissassembled_code[i], address_label[j][0:8], 0, 8) != -1:
+                if dissassembled_code[i-1] == address_label[j]:
+                    print("the same are here")
+                    del address_label[j]
+                    break
+                dissassembled_code.insert(i, address_label[j])
+                print(dissassembled_code[i] + " " + address_label[j])
+                del address_label[j]
+                break
     with open("vysledok.txt", "w") as file:
         for output_line in dissassembled_code:
             file.write(output_line + "\n")
@@ -491,21 +536,7 @@ def registerName(number):
     else:
         return "$ra"
 
-def biteOperations():
-    with open("input.txt", "rb") as file:
-        while True:
-            chunk = file.read(1024)
-            if chunk:
-                for b in chunk:
-                    print(bin(b)[2:])
-                    for i in range(0,8):
-                        byte = b & 128
-                        print(bin(byte)[2:3],end='')
-                        b = b << 1
-                    print()
 
-            else:
-                break
 
 file_location = "examples/Ukazka2/ukazka2.o"
 readElfHeader()

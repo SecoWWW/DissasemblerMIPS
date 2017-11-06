@@ -54,6 +54,22 @@ with open("test.txt","w") as text:
     text.seek(0)
     text.write("Treria veta.")
 
+def biteOperations():
+    with open("input.txt", "rb") as file:
+        while True:
+            chunk = file.read(1024)
+            if chunk:
+                for b in chunk:
+                    print(bin(b)[2:])
+                    for i in range(0,8):
+                        byte = b & 128
+                        print(bin(byte)[2:3],end='')
+                        b = b << 1
+                    print()
+
+            else:
+                break
+
 if __name__ == "__main__":
     print("Hlavna funkcia")
 else:
