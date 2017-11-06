@@ -1,5 +1,8 @@
+#!/usr/bin/python
+
 import sys
 import json
+import os
 import getopt
 
 file_location = "examples/Ukazka1/ukazka1.o"
@@ -8,14 +11,20 @@ program_name = 'dissassembler.py'
 
 def readElfHeader():
     with open(file_location, "rb") as file:
-        print(file_location)
+        # with open(output_location, "w") as output:
+        #     output.write("Pisem\n")
+        # print(os.stat(file_location))
+
         section_offset = 0
         machine_version = 0
         section_size = 0
         number_of_sections = 0
 
         chunk = file.read(52)
+        b = chunk[10]
+        print("Toto je na mieste: " + str(bin(b)))
         for i in range(18, 20):
+            # print(byte(chunk[i]))
             # start is at 18 and size is 2 bytes
             machine_version += int(chunk[i])*(256**(19-i))
         print(machine_version)
