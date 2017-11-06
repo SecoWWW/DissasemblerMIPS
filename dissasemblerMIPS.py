@@ -1,9 +1,14 @@
 import sys
 import json
+import getopt
 
+file_location = "examples/Ukazka1/ukazka1.o"
+output_location = "examples/Ukazka1/dissassembled2.txt"
+program_name = 'dissassembler.py'
 
 def readElfHeader():
     with open(file_location, "rb") as file:
+        print(file_location)
         section_offset = 0
         machine_version = 0
         section_size = 0
@@ -13,6 +18,10 @@ def readElfHeader():
         for i in range(18, 20):
             # start is at 18 and size is 2 bytes
             machine_version += int(chunk[i])*(256**(19-i))
+        print(machine_version)
+        if machine_version != 8:
+            print("Error: Unkown architekture")
+            return
         for i in range(32, 36):
             # start is at 32 and size is 4 bytes
             section_offset += int(chunk[i])*(256**(35-i))
@@ -455,14 +464,14 @@ def dissasemble(offset, size):
         for j in range(0,len(address_label)):
             if str.rfind(dissassembled_code[i], address_label[j][0:8], 0, 8) != -1:
                 if dissassembled_code[i-1] == address_label[j]:
-                    print("the same are here")
+                    # print("the same are here")
                     del address_label[j]
                     break
                 dissassembled_code.insert(i, address_label[j])
-                print(dissassembled_code[i] + " " + address_label[j])
+                # print(dissassembled_code[i] + " " + address_label[j])
                 del address_label[j]
                 break
-    with open("vysledok.txt", "w") as file:
+    with open(output_location, "w") as file:
         for output_line in dissassembled_code:
             file.write(output_line + "\n")
 
@@ -538,5 +547,34 @@ def registerName(number):
 
 
 
-file_location = "examples/Ukazka2/ukazka2.o"
-readElfHeader()
+
+
+
+def printhelp(name):
+    print("usage: " + name + "     [-h] -i <input file> -o <output file>")
+    print("\nProcess .elf file for MIPS 32-bit architecture")
+    print("  -i     specify path to input file")
+    print("  -o     specify path to output file")
+    sys.exit(1)
+
+if __name__ == "__main__":
+    # main(sys.argv)
+    if len(sys.argv) == 1:
+        printhelp(sys.argv[0])
+    for arg in range(0, len(sys.argv)):
+        if sys.argv[arg] == "-h":
+            printhelp(sys.argv[0])
+        elif sys.argv[arg] == "-i":
+            # print("input file: " + sys.argv[arg+1])
+            if len(sys.argv) <= arg + 1:
+                print("  No input file")
+                sys.exit(1)
+            file_location = sys.argv[arg+1]
+        elif sys.argv[arg] == "-o":
+            # print("output file: " + sys.argv[arg + 1])
+            if len(sys.argv) <= arg + 1:
+                print("  No output file")
+                sys.exit(1)
+            output_location = sys.argv[arg + 1]
+
+    readElfHeader()
