@@ -1,0 +1,4 @@
+Priecinky obsahujú:
+<folder_name>.c - kód ktorý bol použitý pri kompilácií
+<folder_name>.o - ELF súbor ktorý bol vygenerovaný pomocou mips-gcc
+<disassemble.txt> - súbor kde je disassemblovaná .text sekcia ELF súboru

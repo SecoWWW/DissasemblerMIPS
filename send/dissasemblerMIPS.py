@@ -5,9 +5,6 @@ import getopt
 file_location = "examples/Ukazka1/ukazka1.o"
 output_location = "examples/Ukazka1/dissassembled2.txt"
 program_name = 'dissassembler.py'
-i_option = False
-o_option = False
-x_option = False
 
 def readElfHeader():
     with open(file_location, "rb") as file:
@@ -21,7 +18,7 @@ def readElfHeader():
         for i in range(18, 20):
             # start is at 18 and size is 2 bytes
             machine_version += int(chunk[i])*(256**(19-i))
-        # print(machine_version)
+        print(machine_version)
         if machine_version != 8:
             print("Error: Unkown architekture")
             return
@@ -39,7 +36,6 @@ def readElfHeader():
         text_indexes = []
         shstrtab_indexes = []
         for i in range(0, number_of_sections):
-            # print("Section address: " + str(hex(section_offset+(section_size*i))))
             chunk = file.read(section_size)
             sh_type = 0
 
@@ -52,12 +48,6 @@ def readElfHeader():
             if sh_type == 1:
                 text_indexes.append(i)
                 # print("Found possible text section.")
-            # print()
-
-        #
-        # print(len(shstrtab_indexes))
-        # print("shstrtab_indexes is " + repr(shstrtab_indexes))
-        # print("text_index is " + repr(text_indexes))
 
         if shstrtab_indexes is None:
             sys.stderr.write("shstrtab_indexes is type None\n")
@@ -66,35 +56,13 @@ def readElfHeader():
         shstrtab_offset = findShstrtab(section_offset,
                                        section_size,
                                        shstrtab_indexes)
-        # print(shstrtab_offset)
-        # file.seek(shstrtab_offset+1)
-        # shstrtab_size = 100
-        # string = ""
-        # for i in range(0,shstrtab_size):
-        #     chunk = file.read(1)
-        #     string += chr(int(chunk[0]))
-        # print(string)
+
         text_offset, text_size = findText(section_offset,
                                           section_size,
                                           text_indexes,
                                           shstrtab_offset)
-        # print("text_offset is: " + str(text_offset))
-        # print("text_size is: " + str(text_size))
-
-        # file.seek(text_offset)
-        # for i in range(0,text_size,4):
-        #     chunk = file.read(4)
-        #     for j in range(0,4):
-        #         print(format(int(chunk[j]), "x"),end="")
-        #     print()
 
         dissasemble(text_offset,text_size)
-
-
-    # print("Machine version: " + str(machine_version))
-    # print("Section offset (from start of file): " + str(section_offset))
-    # print("Each section header size: " + str(section_size))
-    # print("Number of sections: " + str(number_of_sections))
 
 
 def findShstrtab(section_offset, section_size, indexes):
@@ -138,7 +106,6 @@ def findText(section_offset, section_size, text_indexes, shstrtab_offset):
 
             file.seek(shstrtab_offset + sh_name)
             name = file.read(len(".text"))
-            # print(name.decode("utf-8"))
             text_offset = 0
             text_size = 0
             if name.decode("utf-8") == ".text":
@@ -169,18 +136,6 @@ def dissasemble(offset, size):
             imm_C = ""
             add_A = ""
 
-            # for b in instruction:
-            #     print("Whole byte: "+ str(bin(b)[2:]))
-            #     for j in range(0, 6):
-            #         byte = b & 128
-            #         # print(bin(byte)[2:3], end='')
-            #         opcode += str(bin(byte)[2:3])
-            #         b = b << 1
-            #     print(opcode)
-            # print("Whole byte 0: " + str(hex(instruction[0])) + " " + bin(instruction[0]))# 31 - 24
-            # print("Whole byte 1: " + str(hex(instruction[1])) + " " + bin(instruction[1]))# 23 - 16
-            # print("Whole byte 2: " + str(hex(instruction[2])) + " " + bin(instruction[2]))# 15 - 8
-            # print("Whole byte 3: " + str(hex(instruction[3])) + " " + bin(instruction[3]))# 7 - 0
 
             byte = instruction[0]               # first bit
             for j in range(0,6):
@@ -229,8 +184,6 @@ def dissasemble(offset, size):
                     b = byte & 128
                     funct += str(bin(b)[2:3])
                     byte = byte << 1
-                # print(" opcode: "+ str(int(opcode, 2)) +" reg_s: "+ str(int(reg_s, 2)) +" reg_t: "+str(int(reg_t, 2))
-                #       +" reg_d: "+str(int(reg_d, 2)) +" imm_S: "+str(int(imm_S, 2)) +" funct: "+str(int(funct, 2)))
 
                 reg_s = registerName(int(reg_s, 2))
                 reg_t = registerName(int(reg_t, 2))
@@ -238,8 +191,6 @@ def dissasemble(offset, size):
                 imm_S = int(imm_S, 2)
                 funct = int(funct, 2)
 
-                # print(" opcode: " + str(int(opcode, 2)) + " reg_s: " + str(reg_s) + " reg_t: " + str(reg_t)
-                #       + " reg_d: " + str(reg_d) + " imm_S " + str(imm_S) + " funct: " + str(funct))
                 with open("instructions.json", "r") as json_file:
                     instructions = json.load(json_file)
                     if reg_s == "$zero" and reg_t == "$zero" and reg_d == "$zero" and imm_S == 0 and funct == 0:
@@ -303,14 +254,11 @@ def dissasemble(offset, size):
                     byte = byte << 1
                 imm_C = int(imm_C, 2)
                 imm_C = (imm_C if imm_C < 2**15 else imm_C - 2**16)
-                # print("opcode: "+ str(int(opcode, 2)) +" reg_s: "+ str(int(reg_s, 2)) +" regimm: "+str(int(regimm, 2))
-                #       +" imm_C "+str(imm_C))
+
 
                 reg_s = registerName(int(reg_s, 2))
                 regimm = int(regimm, 2)
 
-                # print("opcode: " + str(int(opcode, 2)) + " reg_s: " + str(reg_s) + " regimm: " + str(regimm)
-                #       + " imm_C " + str(imm_C))
                 with open("instructions.json", "r") as json_file:
                     instructions = json.load(json_file)
                     for itterator in instructions["instructions"][1]["RI"]:
@@ -324,13 +272,12 @@ def dissasemble(offset, size):
                                 syntax = syntax.replace("$s", reg_s)
                             if itterator["C"] == True:
                                 if syntax[21] == 'b':
-                                    # syntax += "it is branch instruction"
                                     PC = i + 4
                                     imm_C = (imm_C << 2) % 65536
                                     imm_C = (imm_C if imm_C < 2**15 else imm_C-2**16)
                                     address = "{0:0{1}x}".format(PC + imm_C, 8)
                                     imm_C = "loc_" + address
-                                    address_label.append(address + "     " + imm_C + ":")
+                                    address_label.append(address + "     " + imm_C)
 
                                 syntax = syntax.replace("C", str(imm_C))
 
@@ -370,8 +317,6 @@ def dissasemble(offset, size):
                 PC = (PC & int("0xf0000000", 16)) | (add_A << 2)
                 add_A = (PC if PC < 2 ** 31 else PC - 2 ** 32)
 
-                # print("opcode: " + str(opcode) + " add_A: " + str(add_A))
-
                 with open("instructions.json", "r") as json_file:
                     instructions = json.load(json_file)
                     for itterator in instructions["instructions"][2]["J"]:
@@ -382,11 +327,7 @@ def dissasemble(offset, size):
                                       + "{0:0{1}x}".format(int(instruction[3]), 2)
                             syntax += "    " + itterator["syntax"]
                             address = "{0:0{1}x}".format(add_A, 8)
-                            address_label.append(address + "     " + "loc_" + address + ":")
-                            # for j in range(0, len(dissassembled_code)):
-                            #     if str.rfind(dissassembled_code[j], address, 0, 8) != -1:
-                            #         dissassembled_code.insert(j, address + "     " + add_A)
-                            #         break
+                            address_label.append(address + "     " + "loc_" + address)
                             syntax = syntax.replace("A", "loc_"+address)
                             dissassembled_code.append(syntax)
                             break
@@ -425,15 +366,13 @@ def dissasemble(offset, size):
                 imm_C = int(imm_C, 2)
                 imm_C = (imm_C if imm_C<2**15 else imm_C-2**16)
 
-                # print("opcode: "+str(int(opcode, 2)) + " reg_s: " + str(int(reg_s, 2)) + " reg_t: " + str(int(reg_t, 2))
-                #       + " imm_C: "+ str(imm_C))
+                
 
                 opcode = int(opcode, 2)
                 reg_s = registerName(int(reg_s, 2))
                 reg_t = registerName(int(reg_t, 2))
 
-                # print("opcode: " + str(opcode) + " reg_s: " + str(reg_s) + " reg_t: " + str(reg_t)
-                #       + " imm_C: " + str(imm_C))
+                
 
                 with open("instructions.json", "r") as json_file:
                     instructions = json.load(json_file)
@@ -449,14 +388,13 @@ def dissasemble(offset, size):
                             if itterator["t"] == True:
                                 syntax = syntax.replace("$t", reg_t)
                             if itterator["C"] == True:
-                                if syntax[21] == 'b':
-                                    # syntax += "it is branch instruction"
+                                if syntax[21] == 'b':                                    
                                     PC = i + 4
                                     imm_C = (imm_C << 2) % 65536
                                     imm_C = (imm_C if imm_C < 2**15 else imm_C-2**16)
                                     address = "{0:0{1}x}".format(PC + imm_C, 8)
                                     imm_C = "loc_" + address
-                                    address_label.append(address + "     " + imm_C + ":")
+                                    address_label.append(address + "     " + imm_C)
 
 
                                 syntax = syntax.replace("C", str(imm_C))
@@ -465,33 +403,15 @@ def dissasemble(offset, size):
     for i in range(0,len(dissassembled_code)):
         for j in range(0,len(address_label)):
             if str.rfind(dissassembled_code[i], address_label[j][0:8], 0, 8) != -1:
-                if dissassembled_code[i-1] == address_label[j]:
-                    # print("the same are here")
+                if dissassembled_code[i-1] == address_label[j]:                    
                     del address_label[j]
                     break
-                dissassembled_code.insert(i, address_label[j])
-                # print(dissassembled_code[i] + " " + address_label[j])
+                dissassembled_code.insert(i, address_label[j])                
                 del address_label[j]
                 break
-    if (o_option == True):
-        with open(output_location, "w") as file:
-            for output_line in dissassembled_code:
-                if x_option == True:
-                    file.write(output_line + "\n")
-                else:
-                    if output_line[13:16] == "loc":
-                        file.write(output_line[13:] + "\n")
-                        continue
-                    file.write(output_line[19:] + "\n")
-    else:
+    with open(output_location, "w") as file:
         for output_line in dissassembled_code:
-            if x_option == True:
-                print(output_line)
-            else:
-                if output_line[13:16] == "loc":
-                    print(output_line[13:])
-                    continue
-                print(output_line[19:])
+            file.write(output_line + "\n")
 
 
 
@@ -569,42 +489,27 @@ def registerName(number):
 
 
 def printhelp(name):
-    print("usage: " + name + "     [-h] | [-x] | [-o] -i <input file>")
-    print("\nProcess .elf file for MIPS 32-bit architecture ")
-    print("\n Required:====================================")
+    print("usage: " + name + "     [-h] -i <input file> -o <output file>")
+    print("\nProcess .elf file for MIPS 32-bit architecture")
     print("  -i     specify path to input file")
-    print("\n Optional:====================================")
     print("  -o     specify path to output file")
-    print("  -x     print also address of instruction and \n"
-          "         hex format of instruction")
-    print("  -h     help")
     sys.exit(1)
 
 if __name__ == "__main__":
-    # main(sys.argv)
     if len(sys.argv) == 1:
         printhelp(sys.argv[0])
     for arg in range(0, len(sys.argv)):
         if sys.argv[arg] == "-h":
             printhelp(sys.argv[0])
         elif sys.argv[arg] == "-i":
-            # print("input file: " + sys.argv[arg+1])
             if len(sys.argv) <= arg + 1:
                 print("  No input file")
                 sys.exit(1)
             file_location = sys.argv[arg+1]
-            i_option = True
         elif sys.argv[arg] == "-o":
-            # print("output file: " + sys.argv[arg + 1])
             if len(sys.argv) <= arg + 1:
                 print("  No output file")
                 sys.exit(1)
             output_location = sys.argv[arg + 1]
-            o_option = True
-        elif sys.argv[arg] == "-x":
-            x_option = True
-    if(i_option == False):
-        print("No input file")
-        sys.exit(1)
 
     readElfHeader()
