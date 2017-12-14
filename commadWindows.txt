@@ -1,1 +1,0 @@
-Measure-Command {start-process python ".\Dissassembler.py -i .\examples\Ukazka1\ukazka.o -o .\examples\Ukazka1\dissassembled.txt" -wait}
