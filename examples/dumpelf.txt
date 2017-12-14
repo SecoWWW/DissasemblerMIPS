@@ -48,8 +48,8 @@ struct {
 	.sh_type      = 0          , /* [SHT_NULL] */		4 bytes
 	.sh_flags     = 0          ,						4 bytes
 	.sh_addr      = 0x0        ,						4 bytes
-	.sh_offset    = 0          , /* (bytes) */			4 bytes
-	.sh_size      = 0          , /* (bytes) */			4 bytes
+	.sh_offset    = 0          , /* (bytes) */			4 bytes 16 offset
+	.sh_size      = 0          , /* (bytes) */			4 bytes 20 offset
 	.sh_link      = 0          ,						4 bytes
 	.sh_info      = 0          ,						4 bytes
 	.sh_addralign = 0          ,						4 bytes

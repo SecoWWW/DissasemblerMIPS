@@ -1,0 +1,78 @@
+
+insert.o:     file format elf32-tradbigmips
+
+
+Disassembly of section .text:
+
+00000000 <insertion_sort>:
+   0:	27bdffe8 	addiu	sp,sp,-24
+   4:	afbe0014 	sw	s8,20(sp)
+   8:	03a0f025 	move	s8,sp
+   c:	afc40018 	sw	a0,24(s8)
+  10:	afc5001c 	sw	a1,28(s8)
+  14:	24020001 	li	v0,1
+  18:	afc20004 	sw	v0,4(s8)
+  1c:	10000033 	b	ec <insertion_sort+0xec>
+  20:	00000000 	nop
+  24:	8fc20004 	lw	v0,4(s8)
+  28:	00021080 	sll	v0,v0,0x2
+  2c:	8fc30018 	lw	v1,24(s8)
+  30:	00621021 	addu	v0,v1,v0
+  34:	8c420000 	lw	v0,0(v0)
+  38:	afc2000c 	sw	v0,12(s8)
+  3c:	8fc20004 	lw	v0,4(s8)
+  40:	afc20008 	sw	v0,8(s8)
+  44:	10000011 	b	8c <insertion_sort+0x8c>
+  48:	00000000 	nop
+  4c:	8fc20008 	lw	v0,8(s8)
+  50:	00021080 	sll	v0,v0,0x2
+  54:	8fc30018 	lw	v1,24(s8)
+  58:	00621021 	addu	v0,v1,v0
+  5c:	8fc40008 	lw	a0,8(s8)
+  60:	3c033fff 	lui	v1,0x3fff
+  64:	3463ffff 	ori	v1,v1,0xffff
+  68:	00831821 	addu	v1,a0,v1
+  6c:	00031880 	sll	v1,v1,0x2
+  70:	8fc40018 	lw	a0,24(s8)
+  74:	00831821 	addu	v1,a0,v1
+  78:	8c630000 	lw	v1,0(v1)
+  7c:	ac430000 	sw	v1,0(v0)
+  80:	8fc20008 	lw	v0,8(s8)
+  84:	2442ffff 	addiu	v0,v0,-1
+  88:	afc20008 	sw	v0,8(s8)
+  8c:	8fc20008 	lw	v0,8(s8)
+  90:	1840000d 	blez	v0,c8 <insertion_sort+0xc8>
+  94:	00000000 	nop
+  98:	8fc30008 	lw	v1,8(s8)
+  9c:	3c023fff 	lui	v0,0x3fff
+  a0:	3442ffff 	ori	v0,v0,0xffff
+  a4:	00621021 	addu	v0,v1,v0
+  a8:	00021080 	sll	v0,v0,0x2
+  ac:	8fc30018 	lw	v1,24(s8)
+  b0:	00621021 	addu	v0,v1,v0
+  b4:	8c430000 	lw	v1,0(v0)
+  b8:	8fc2000c 	lw	v0,12(s8)
+  bc:	0043102a 	slt	v0,v0,v1
+  c0:	1440ffe2 	bnez	v0,4c <insertion_sort+0x4c>
+  c4:	00000000 	nop
+  c8:	8fc20008 	lw	v0,8(s8)
+  cc:	00021080 	sll	v0,v0,0x2
+  d0:	8fc30018 	lw	v1,24(s8)
+  d4:	00621021 	addu	v0,v1,v0
+  d8:	8fc3000c 	lw	v1,12(s8)
+  dc:	ac430000 	sw	v1,0(v0)
+  e0:	8fc20004 	lw	v0,4(s8)
+  e4:	24420001 	addiu	v0,v0,1
+  e8:	afc20004 	sw	v0,4(s8)
+  ec:	8fc30004 	lw	v1,4(s8)
+  f0:	8fc2001c 	lw	v0,28(s8)
+  f4:	0062102a 	slt	v0,v1,v0
+  f8:	1440ffca 	bnez	v0,24 <insertion_sort+0x24>
+  fc:	00000000 	nop
+ 100:	00000000 	nop
+ 104:	03c0e825 	move	sp,s8
+ 108:	8fbe0014 	lw	s8,20(sp)
+ 10c:	27bd0018 	addiu	sp,sp,24
+ 110:	03e00008 	jr	ra
+ 114:	00000000 	nop
+	...

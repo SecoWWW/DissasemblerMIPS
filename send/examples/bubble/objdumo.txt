@@ -1,0 +1,85 @@
+
+bubble.o:     file format elf32-tradbigmips
+
+
+Disassembly of section .text:
+
+00000000 <bubble_sort>:
+   0:	27bdffe8 	addiu	sp,sp,-24
+   4:	afbe0014 	sw	s8,20(sp)
+   8:	03a0f025 	move	s8,sp
+   c:	afc40018 	sw	a0,24(s8)
+  10:	afc5001c 	sw	a1,28(s8)
+  14:	24020001 	li	v0,1
+  18:	afc20008 	sw	v0,8(s8)
+  1c:	1000003c 	b	110 <bubble_sort+0x110>
+  20:	00000000 	nop
+  24:	afc00008 	sw	zero,8(s8)
+  28:	24020001 	li	v0,1
+  2c:	afc20004 	sw	v0,4(s8)
+  30:	10000032 	b	fc <bubble_sort+0xfc>
+  34:	00000000 	nop
+  38:	8fc20004 	lw	v0,4(s8)
+  3c:	00021080 	sll	v0,v0,0x2
+  40:	8fc30018 	lw	v1,24(s8)
+  44:	00621021 	addu	v0,v1,v0
+  48:	8c430000 	lw	v1,0(v0)
+  4c:	8fc40004 	lw	a0,4(s8)
+  50:	3c023fff 	lui	v0,0x3fff
+  54:	3442ffff 	ori	v0,v0,0xffff
+  58:	00821021 	addu	v0,a0,v0
+  5c:	00021080 	sll	v0,v0,0x2
+  60:	8fc40018 	lw	a0,24(s8)
+  64:	00821021 	addu	v0,a0,v0
+  68:	8c420000 	lw	v0,0(v0)
+  6c:	0062102a 	slt	v0,v1,v0
+  70:	1040001f 	beqz	v0,f0 <bubble_sort+0xf0>
+  74:	00000000 	nop
+  78:	8fc20004 	lw	v0,4(s8)
+  7c:	00021080 	sll	v0,v0,0x2
+  80:	8fc30018 	lw	v1,24(s8)
+  84:	00621021 	addu	v0,v1,v0
+  88:	8c420000 	lw	v0,0(v0)
+  8c:	afc2000c 	sw	v0,12(s8)
+  90:	8fc20004 	lw	v0,4(s8)
+  94:	00021080 	sll	v0,v0,0x2
+  98:	8fc30018 	lw	v1,24(s8)
+  9c:	00621021 	addu	v0,v1,v0
+  a0:	8fc40004 	lw	a0,4(s8)
+  a4:	3c033fff 	lui	v1,0x3fff
+  a8:	3463ffff 	ori	v1,v1,0xffff
+  ac:	00831821 	addu	v1,a0,v1
+  b0:	00031880 	sll	v1,v1,0x2
+  b4:	8fc40018 	lw	a0,24(s8)
+  b8:	00831821 	addu	v1,a0,v1
+  bc:	8c630000 	lw	v1,0(v1)
+  c0:	ac430000 	sw	v1,0(v0)
+  c4:	8fc30004 	lw	v1,4(s8)
+  c8:	3c023fff 	lui	v0,0x3fff
+  cc:	3442ffff 	ori	v0,v0,0xffff
+  d0:	00621021 	addu	v0,v1,v0
+  d4:	00021080 	sll	v0,v0,0x2
+  d8:	8fc30018 	lw	v1,24(s8)
+  dc:	00621021 	addu	v0,v1,v0
+  e0:	8fc3000c 	lw	v1,12(s8)
+  e4:	ac430000 	sw	v1,0(v0)
+  e8:	24020001 	li	v0,1
+  ec:	afc20008 	sw	v0,8(s8)
+  f0:	8fc20004 	lw	v0,4(s8)
+  f4:	24420001 	addiu	v0,v0,1
+  f8:	afc20004 	sw	v0,4(s8)
+  fc:	8fc30004 	lw	v1,4(s8)
+ 100:	8fc2001c 	lw	v0,28(s8)
+ 104:	0062102a 	slt	v0,v1,v0
+ 108:	1440ffcb 	bnez	v0,38 <bubble_sort+0x38>
+ 10c:	00000000 	nop
+ 110:	8fc20008 	lw	v0,8(s8)
+ 114:	1440ffc3 	bnez	v0,24 <bubble_sort+0x24>
+ 118:	00000000 	nop
+ 11c:	00000000 	nop
+ 120:	03c0e825 	move	sp,s8
+ 124:	8fbe0014 	lw	s8,20(sp)
+ 128:	27bd0018 	addiu	sp,sp,24
+ 12c:	03e00008 	jr	ra
+ 130:	00000000 	nop
+	...

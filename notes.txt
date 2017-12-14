@@ -106,7 +106,7 @@ beql $s, $t, C
 bnel $s, $t, C
 blezl $s, C
 bgtzl $s, C
-lb $t, C($s
+lb $t, C($s)
 lh $t, C($s)
 lwl $t, C($s)
 lw $t, C($s)
@@ -125,3 +125,4 @@ pref H, C($s)
 
 pseudo instructions
 
+                              
